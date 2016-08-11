@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <include file="Public/head"/>
+    <link href="__CSS__/project.css" type="text/css" rel="stylesheet">
+    <link href="__CSS__/animate.css" type="text/css" rel="stylesheet">
+    <link href="__CSS__/owl.carousel.css" type="text/css" rel="stylesheet">
+    <link href="__CSS__/owl.theme.default-my.css" type="text/css" rel="stylesheet">
+    <php> D('Member')->need_login();</php>
+</head>
+<body>
+<include file="Public/header"/>
+<div class="main-wrapper">
+    <section class="projects-container">
+        <div class="banner">
+            <div class="owl-carousel owl-theme">
+                <!-- <div class="" style="background-color: rgb(5, 12, 28)"> -->
+                <div class="" style="background-color: rgb(255, 255, 255)">
+                    <div class="container">
+                        <div class="row">
+                            <img class="" src="__IMG__/project1.jpg"/>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div style="background-color: rgb(74, 111, 244)"> -->
+                <div style="background-color: rgb(255,255,255)">
+                    <div class="container">
+                        <div class="row"><img class="" src="__IMG__/project2.jpg"/></div>
+                    </div>
+                </div>
+                <div style="background-color: rgb(255,255,255)">
+                <!-- <div style="background-color: rgb(5, 12, 28)"> -->
+                    <div class="container">
+                        <div class="row"><img class="" src="__IMG__/project3.jpg"/></div>
+                    </div>
+                </div>
+                <!-- <div style="background-color: rgb(74, 111, 244)"> -->
+                <div style="background-color: rgb(255,255,255)">
+                    <div class="container">
+                        <div class="row"><img class="" src="__IMG__/project4.jpg"/></div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="shadow-cover">
+                    <div class="dot-container"> </div>
+                    <div class="nav-container"> </div>
+                </div>
+            </div>
+            <div class="aside">
+                <div class="news">
+                    <div class="news-title row">
+                        <h5 class="header col-xs-6 columns">新闻公告</h5>
+                        <div class="header col-xs-6 columns text-right hide"><a href="news.html">更多</a></div>
+                    </div>
+                    <div class="news-wapper">
+                        <div class="news-item row">
+                        <span class="col-xs-1 columns">
+                            <i class="icon icon-circle"></i></span>
+                        <span class="col-xs-11 columns row">
+                            <a  data-toggle="modal" data-target="#ongoing" href="news-detail.html?id=1">海智股权投资相关管理制度（试行）征求意见稿</a>
+                        </span>
+                        </div>
+                        <div class="news-item row">
+                        <span class="col-xs-1 columns">
+                            <i class="icon icon-circle"></i></span>
+                        <span class="col-xs-11 columns row">
+                            <a  data-toggle="modal" data-target="#ongoing" href="news-detail.html?id=1">【盘点】2015互联网金融盘点：土豪是怎样布...</a>
+                        </span>
+                        </div>
+                        <div class="news-item row">
+                        <span class="col-xs-1 columns">
+                            <i class="icon icon-circle"></i></span>
+                        <span class="col-xs-11 columns row">
+                            <a  data-toggle="modal" data-target="#ongoing" href="news-detail.html?id=1">【氪以这样说】VR领域资本大佬纷纷入局</a>
+                        </span>
+                        </div>
+                        <div class="news-item row">
+                        <span class="col-xs-1 columns">
+                            <i class="icon icon-circle"></i></span>
+                        <span class="col-xs-11 columns row">
+                            <a  data-toggle="modal" data-target="#ongoing" href="news-detail.html?id=1">【大师说】祥峰投资郑俊聪：媒体电商为消费升</a>
+                        </span>
+                        </div>
+                        <div class="news-item row">
+                        <span class="col-xs-1 columns">
+                            <i class="icon icon-circle"></i></span>
+                        <span class="col-xs-11 columns row">
+                            <a  data-toggle="modal" data-target="#ongoing" href="news-detail.html?id=1">【大师说】祥峰投资郑俊聪：媒体电商为消费升</a>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="weixin row">
+                <div class="col-xs-4 logo" style="background-image: url(__IMG__/appqr.png)"> </div>
+                <div class="col-xs-8 text-center">
+                    <h4 class=""><i class="fa fa-2x fa-mobile inline-center"></i><span class="inline-center">海智投资服务中心公众号</span></h4>
+                    <!--<div class="sub-info">1%的投资成就100%的梦想</div>-->
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="project-type row">
+                <a class="category" data-id="1" href="{:U('project/view/index',array('category'=>1))}">全部</a>
+                <volist name="category" id="cate">
+                    <a data-id="{$cate.id}" href="{:U('project/view/index',array('category'=>$cate['id']))}"
+                       class="category">{$cate.category_name}</a>
+                </volist>
+            </div>
+            <div class="project-wapper">
+                <div class="projects" style="position: relative;">
+                    <notempty name="list">
+                        <volist name="list" id="item">
+                            <a href="{:U('project/view/detail',array('id'=>$item['project_id']))}">
+                            <div class="common-block item-wapper row">
+                                <div class="col-xs-8 project-img" style="background-image: url({$item.path})"></div>
+                                <div class="col-xs-4 columns">
+                                    <span class="header row">
+                                        <span class="inline-center avatar" style="background-image: url({$item.User_img_path})"></span>
+                                        <span class="inline-center font-blod" style="color:#666;">{$item.nickname}</span>
+                                    </span>
+                                    <div class="icon-wapper row">
+                                        <div class="col-xs-3 columns" style="padding-left:0">
+                                            <span class="project-logo" style="background-image: url({$item.pro_logo})"></span>
+                                        </div>
+                                        <div class="col-xs-9 columns" style="padding-left:5px"><h5>{$item.project_name}</h5>
+                                            <div class="short-desc">{$item.short_desc}</div>
+                                        </div>
+                                    </div>
+                                    <notempty name="item.core_teamer">
+                                        <volist name="item.core_teamer" id="core_item">
+                                            <div class="info-item row" style="color:#666;">
+                                                <span class="col-xs-3 columns">
+                                                    <span class="label-info white">核心成员</span>
+                                                </span>
+                                                <span class="col-xs-9">{$core_item.position}---{$core_item.name}</span>
+                                            </div>
+                                        </volist>
+                                        <else/>
+                                        <div class="info-item row">
+                                            <span class="col-xs-4 columns">
+                                            <span class="label-info white">无核心成员</span>
+                                            </span>
+                                        </div>
+                                    </notempty>
+                                    <div class="addtion-info">
+                                        <div class="service-list " style="margin-top:30px;">
+                                            <notempty name="item.category_name">
+                                                <span class="info-tag-list">{$item.category_name}</span>
+                                            </notempty>
+
+                                            <!-- <notempty name="item.core_teamer">
+                                                <volist name="item.core_teamer" id="core_item_avatar">
+                                                    <if condition="$core_item_avatar.path eq null">
+                                                        <span class="inline-center  icon-button text-center popover-trigger" style="background-image: url('/Uploads/Picture/default/default_avatar_128_128.jpg');background-size: cover;background-position: center;">
+                                                        </span>
+                                                        <else />
+                                                        <span class="inline-center  icon-button text-center popover-trigger" style="background-image: url({$core_item_avatar.path});background-size: cover;background-position: center;">
+                                                        </span>
+                                                    </if>
+                                                </volist>
+                                                <else/>
+                                                <a class="inline-center hidden icon-button text-center popover-trigger" style="background-image: url();background-size: cover;background-position: center;"> </a>
+                                            </notempty> -->
+                                        </div>
+                                        <!-- <a href="{:U('project/view/detail',array('id'=>$item['project_id']))}" class="btn btn-block  btn-info no-border project-link margin-top-15 white">我想了解该项目</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                            </a>
+                        </volist>
+                        <else/>
+                        <div class="row" style="background-color: transparent;box-shadow:none">
+                            <div class="text-center nodata">
+                                <label style="line-height: 150px;"><i class="icon icon-2x icon-frown" style="padding-right:5px;"></i>该分类下暂无数据</label>
+                            </div>
+                        </div>
+                    </notempty>
+                </div>
+                <div class="" style="margin-right: -10px;text-align:right">
+                    {$_page}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<include file="Public/footer"/>
+<script src="__JS__/owl.carousel.js"></script>
+<script src="__JS__/owl.carousel.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/new-style/js/app.js"></script>
+<script language="JavaScript">
+    $(function () {
+        App.init();
+
+        $(".owl-carousel").owlCarousel({
+            items: 1,
+            autoplayHoverPause: true,
+            loop: true,
+            autoplay: true,
+            smartSpeed: 800,
+            navContainer: $('.nav-container'),
+            dotsContainer: $('.dot-container'),
+            nav: true,
+            dots: true,
+            navText: []
+        });
+
+
+        $('body').on('click', '.link-ref', function () {
+            window.location.href = $(this).data('ref');
+        });
+
+        $('.project-type [data-id={$categorynum}]').addClass('active')
+    });
+</script>
+
+</body>
+</html>

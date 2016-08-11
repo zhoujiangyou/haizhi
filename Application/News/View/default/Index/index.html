@@ -1,0 +1,85 @@
+<extend name="Base/common"/>
+<block name="header">
+    <include file="Public/_nav"/>
+</block>
+<block name="body">
+    <link type="text/css" rel="stylesheet" href="__CSS__/news.css"/>
+    <div class="container" style="min-height: 400px">
+        <div class="row">
+            <div class="col-xs-8">
+                <div class="common_block_border">
+                    <!-- 广告位摘除-->
+                    <!--{:W('Common/Adv/render',array(array('name'=>'index_top','type'=>2,'width'=>'738px','height'=>'240px','title'=>'资讯首页顶部广告','data'=>array('style'=>1))))}-->
+                    <notempty name="now_category">
+                        <div class="common_block_title">{$now_category.title}
+                            <div class="pull-right children_blog">
+                                <volist name="now_category['_']" id="cat">
+                                    &nbsp;&nbsp;<a href="{:U('News/index/index',array('category'=>$cat['id']))}" style="text-decoration: underline;color: #949494;">{$cat.title}</a>
+                                </volist>
+                            </div>
+                        </div>
+                        <else/>
+                        <div class="common_block_title">{:L('_NEW_VIEW_')}</div>
+                    </notempty>
+                    <div style="padding:0 20px">
+                        <section id="contents">
+                            <notempty name="list">
+                                <volist name="list" id="data">
+                                    <include file="Public/_default_list"/>
+                                </volist>
+                                <else/>
+                                <div style="font-size:3em;padding:2em 0;color: #ccc;text-align: center">{:L('_NEWS_LACK_')}</div>
+                            </notempty>
+
+                        </section>
+                        <div class="text-right">
+                            {:getPagination($totalCount,modC('NEWS_PAGE_NUM',20,'News'))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4" style="margin-top: -85px">
+                <div class="col-xs-12" style="border: 1px solid #f0f0f0;padding: 10px 30px;">
+                    <div>
+                        <h3 style="display: inline-block;margin-top: 10px;">政策申报经典案例</h3>
+                        <div style="width: 100px;height: 1px;background-color:#666;display: inline-block;margin:0 0 5px 20px;"></div>
+                    </div>
+                    <div class="left_sm">
+                        <div class="col-xs-2"><div class="pad_content">1</div></div>
+                        <div class="col-xs-10">
+                            <p style="font-weight: 400;font-size: 1.2em">2012年上海松江农业机具厂获得政府补贴资金12万</p>
+                            <p style="color: #ccc;">2016-07-12 07:44</p>
+                        </div>
+                    </div>
+                    <div class="left_sm">
+                        <div class="col-xs-2"><div class="pad_content">2</div></div>
+                        <div class="col-xs-10">
+                            <p style="font-weight: 400;font-size: 1.2em">2012年上海松江农业机具厂获得政府补贴资金12万</p>
+                            <p style="color: #ccc;">2016-07-12 07:44</p>
+                        </div>
+                    </div>
+                    <div class="left_sm">
+                        <div class="col-xs-2"><div class="pad_content">3</div></div>
+                        <div class="col-xs-10">
+                            <p style="font-weight: 400;font-size: 1.2em">2012年上海松江农业机具厂获得政府补贴资金12万</p>
+                            <p style="color: #ccc;">2016-07-12 07:44</p>
+                        </div>
+                    </div>
+                    <div class="left_sm">
+                        <div class="col-xs-2"><div class="pad_content">4</div></div>
+                        <div class="col-xs-10">
+                            <p style="font-weight: 400;font-size: 1.2em">2012年上海松江农业机具厂获得政府补贴资金12万</p>
+                            <p style="color: #ccc;">2016-07-12 07:44</p>
+                        </div>
+                    </div>
+                    <div class="left_sm">
+                        <div class="col-xs-2"><div class="pad_content">5</div></div>
+                        <div class="col-xs-10">
+                            <p style="font-weight: 400;font-size: 1.2em">2012年上海松江农业机具厂获得政府补贴资金12万</p>
+                            <p style="color: #ccc;">2016-07-12 07:44</p>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</block>

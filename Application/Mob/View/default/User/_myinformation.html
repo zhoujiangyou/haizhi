@@ -1,0 +1,194 @@
+<div class="am-tabs" id="doc-my-tabs">
+    <ul class="am-tabs-nav am-nav am-nav-tabs am-nav-justify" style="font-size: 12px">
+        <li class="am-active" style=""><a href="">基本资料</a></li>
+        <volist name="profile_group_list" id="so">
+            <li><a href="">{$so.profile_name}</a></li>
+        </volist>
+
+    </ul>
+    <div class="am-tabs-bd" style="border: none">
+        <div class="am-tab-panel am-active">
+            <php>if($userdata['uid']==is_login()){</php>
+            <form id="saveUserDate" data-url="{:U('Mob/user/saveUserDate')}">
+                <div class="item-info-page">
+                    <span>昵称：</span>
+
+                    <p>{$userdata.user.nickname}</p>
+                </div>
+                <div class="item-info-page">
+                    <label class="col-xs-2 control-label">性别</label>
+
+                    <label class="radio-inline">
+                        <input name="sex" type="radio" value="1"
+                        <eq name="userdata.sex" value="1"> checked</eq>
+                        >男
+                    </label>
+                    <label class="radio-inline">
+                        <input name="sex" type="radio" value="2"
+                        <eq name="userdata.sex" value="2"> checked</eq>
+                        >女
+                    </label>
+                    <label class="radio-inline">
+                        <input name="sex" type="radio" value="0"
+                        <eq name="userdata.sex" value="0"> checked</eq>
+                        >保密
+
+                    </label>
+
+                </div>
+                <div class="item-info-page">
+                    <php>if(check_reg_type('email')){</php>
+                    <span>邮箱：</span>
+                    <php>$email=M('UcenterMember')->where(array('id'=>is_login()))->find();</php>
+                    <p>{$email.email|htmlspecialchars}</p>&nbsp;&nbsp;
+                    <a class="email"
+                       href="{:U('Mob/user/bind',array('uid'=>$userdata['uid'],'type'=>'email'))}">修改邮箱</a>
+                    <php>}</php>
+                </div>
+                <div class="item-info-page">
+                    <php>if(check_reg_type('mobile')){</php>
+                    <span>手机：</span>
+                    <php>$mobile=M('UcenterMember')->where(array('id'=>is_login()))->find();</php>
+                    <p>{$mobile.mobile|htmlspecialchars}</p>&nbsp;&nbsp;
+                    <a class="email"
+                       href="{:U('Mob/user/bind',array('uid'=>$userdata['uid'],'type'=>'mobile'))}">修改手机号</a>
+
+                    <php>}</php>
+                </div>
+                <div class="item-info-page">
+                    <span>所在地：</span>
+                    {:hook('J_China_City',array('province'=>$userdata['pos_province'],'city'=>$userdata['pos_city'],'district'=>$userdata['pos_district'],'community'=>$userdata['pos_community']))}
+                </div>
+                <div class="item-info-page">
+                    <span>个性签名：</span>
+
+                    <p>
+                        <eq name="userdata.signature" value=""><textarea style="width: 100%"
+                                                                         name="signature"></textarea>
+                            <else/>
+                            <textarea name="signature">{$userdata.signature|htmlspecialchars}</textarea></eq>
+                    </p>
+                </div>
+
+                <button type="button" id="save" class="am-btn am-btn-primary am-btn-block" style="margin: 10px 0px">确定
+            </form>
+            <php>}else{</php>
+            <div class="item-info-page">
+                <span>昵称：</span>
+
+                <p>{$userdata.user.nickname}</p>
+            </div>
+            <div class="item-info-page">
+                <label class="col-xs-2 control-label">性别</label>
+
+                <label class="radio-inline">
+                    <eq name="userdata.sex" value="1"> 男</eq>
+
+                </label>
+                <label class="radio-inline">
+                    <eq name="userdata.sex" value="2"> 女</eq>
+
+                </label>
+                <label class="radio-inline">
+                    <eq name="userdata.sex" value="0"> 保密</eq>
+
+                </label>
+            </div>
+            <php>if(check_reg_type('email')){</php>
+            <div class="item-info-page">
+                <span>邮箱：</span>
+
+                <p>{$userdata.user.email|htmlspecialchars}</p>
+            </div>
+            <php>}</php>
+            <php>if(check_reg_type('mobile')){</php>
+            <div class="item-info-page">
+                <span>手机：</span>
+                <php>$mobile=M('UcenterMember')->where(array('id'=>is_login()))->find();</php>
+                <p>{$mobile.mobile|htmlspecialchars}</p>&nbsp;&nbsp;
+            </div>
+            <php>}</php>
+            <div class="item-info-page">
+                <span>所在地：</span>
+
+                <p>{$userdata.pos_province}&nbsp;&nbsp;{$userdata.pos_city}&nbsp;&nbsp;{$userdata.pos_district}&nbsp;&nbsp;{$userdata.pos_community}</p>
+            </div>
+            <div class="item-info-page">
+                <span>个性签名：</span>
+
+                <p>
+                    <eq name="userdata.signature" value="">还没想好O(∩_∩)O
+                        <else/>
+                        {$userdata.signature|htmlspecialchars}
+                    </eq>
+                </p>
+            </div>
+
+            <php>}</php>
+
+        </div>
+
+        <volist name="profile_group_list" id="group_vl">
+            <div class="am-tab-panel">
+                <div class="tab-pane" id="expand_tab_{$group_vl.id}">
+                    <div class="panel-body expand_info">
+                        <volist name="group_vl['info_list']" id="info_vl">
+                            <dl class="dl-horizontal">
+                                <dt>{$info_vl.field_name}：</dt>
+                                <dd>{$info_vl.field_data|default='还未设置'}</dd>
+                            </dl>
+                        </volist>
+                        <if condition="count($group_vl['info_list']) eq 0"><p class="text-muted"
+                                                                              style="text-align: center; font-size: 15px;margin: 15px;">
+
+                            该扩展信息分组没有信息！
+                        </p></if>
+
+                    </div>
+                </div>
+            </div>
+        </volist>
+
+
+    </div>
+
+
+</div>
+
+
+<style>
+    .item-info-page {
+        border-color: #e3e3e3;
+        overflow: hidden;
+        border-bottom: #dadada solid 1px;
+        padding: 9px 5px 9px 0;
+        clear: both;
+    }
+
+    .item-info-page span {
+        float: left;
+    }
+
+    .item-info-page p {
+        margin: 0px;
+        padding: 0px;;
+        float: left;
+    }
+</style>
+
+<script>
+    $(function () {
+        $('#doc-my-tabs').tabs();
+    })
+    $('#save').click(function () {
+        var data = $("#saveUserDate").serialize();
+        var url = $("#saveUserDate").attr('data-url');
+        $.post(url, data, function (msg) {
+            if (msg.status == 1) {
+                toast.success(msg.info);
+            } else {
+                toast.error(msg.info);
+            }
+        }, 'json');
+    })
+</script>

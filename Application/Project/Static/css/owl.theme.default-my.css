@@ -1,0 +1,38 @@
+/* 
+ * 	Default theme - Owl Carousel CSS File
+ */
+.dot-container {
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.dot-container .owl-dot {
+    display: inline-block;
+    zoom: 1;
+    *display: inline;
+}
+
+.dot-container .owl-dot span {
+    width: 10px;
+    height: 10px;
+    margin: 5px 7px;
+    background: #D6D6D6;
+    display: block;
+    transition: opacity 200ms ease, color ease-out 0.3s, width ease-out 0.3s;
+    border-radius: 5px;
+    opacity: 0.7;
+}
+
+.dot-container .owl-dot.active span {
+    background: #869791;
+    width: 30px;
+
+}
+
+.dot-container .owl-dot:hover span {
+    background: #869791;
+    cursor: pointer;
+}
+
+
+

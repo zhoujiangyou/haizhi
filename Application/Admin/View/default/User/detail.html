@@ -1,0 +1,48 @@
+<div class="container">
+    <div>
+        <div class="col-md-6" style="padding: 5px;"><p><span>申请人名称：{$data.username}</span></p></div>
+        <div class="col-md-6" style="padding: 5px;"><p><span>联系电话：{$data.phone}</span></p></div>
+    </div>
+    <div>
+        <div class="col-md-6" style="padding: 10px;"> <div style="height: 250px;background-image: url({$data.identify_image_facei});background-size: cover" ></div> </div>
+        <div class="col-md-6" style="padding: 10px;"> <div style="height: 250px;background-image: url({$data.identify_image_backi});background-size: cover" ></div> </div>
+    </div>
+    <div>
+        <div class="col-md-6" style="padding: 10px;"> <div style="height: 250px;background-image: url({$data.identify_image_personi});background-size: cover" ></div> </div>
+    </div>
+    <div>
+        <button class="btn btn-info vertify" style="margin-left: 100px;margin-top: 250px">审核通过</button>
+        <button class="btn btn-danger unvertify" style="margin-top: 250px">审核不通过</button>
+        <input class="hidden vertifyid" value="{$data.id}"/>
+    </div>
+</div>
+<block name="script">
+        <script type="text/javascript">
+            var id = $('.vertifyid').val();
+
+            function showmsg(data){
+                if(data && data.status == 1 ){
+                    var msg = new $.zui.Messager(data.info, {type:'success',placement: 'bottom',time:4000});
+                    msg.show();
+                    location.href='/admin/user/vertify.html';
+                }else{
+                    var msg = new $.zui.Messager(data.info, {type:'danger',placement: 'bottom',time:4000});
+                    msg.show();
+                    location.href='/admin/user/vertify.html';
+                }
+            }
+
+            $('.vertify').on('click',function(){
+                $.post("{:U('/admin/user/doVertify')}",{id:id},function(data) {
+                    showmsg(data);
+                });
+            });
+
+            $('.unvertify').on('click',function(){
+                $.post("{:U('/admin/user/dounvertify')}",{id:id},function(data) {
+                    showmsg(data);
+                });
+            });
+
+        </script>
+</block>

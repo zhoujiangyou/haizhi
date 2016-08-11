@@ -1,0 +1,563 @@
+<extend name="Config/base"/>
+<block name="style">
+
+</block>
+<block name="body">
+    <div class="renzheng-wapper padding-15">
+        <h3 class="h-fix h-fix-thin">
+            这个是认证的内容
+        </h3>
+        <p class="margin-top-15">
+            通过认证后您可以发布文章，项目
+        </p>
+        <div class="renzheng-type-wapper padding-20 row margin-bottom-15">
+            <div data-type="1" class="renz-item col-xs-6 text-center padding-20">
+                <h3>个人认证</h3>
+                <div>个人真实身份信息认证</div>
+            </div>
+            <div data-type="2" class="renz-item  col-xs-6 text-center padding-20">
+                <h3>机构认证</h3>
+                <div>如果您代表的机构，请选择此项认证</div>
+            </div>
+            <!--<div data-type="3" class="renz-item  col-xs-4 text-center padding-20">-->
+                <!--<h3>专家认证</h3>-->
+                <!--<div>如果您是某一项领域的专家，请选择此项认证</div>-->
+            <!--</div>-->
+        </div>
+        <div class="personal tabcontent">
+            <h3 class="h-fix h-fix-thin margin-bottom-15">个人认证</h3>
+            <div class="row margin-top-15">
+                <form id="gerenrenzheng" class="form-horizontal center_info ajax-form">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">身份证正面</label>
+                        <div class="col-xs-10">
+                            <div class="controls">
+                                <input type="file" id="upload_picture_idcard">
+                                <div class="upload-img-box-idcard border" style="width: 300px">
+                                    <div style="font-size:1em;color: #CCCCCC;text-align: center">
+                                        暂无图片
+                                    </div>
+                                </div>
+                                <input type="hidden" name="idcard" id="idcard" value="{$model.idcard}"/>
+                            </div>
+                            <div class="tip-in-form">
+                                <i class="icon icon-info-sign"></i>
+                                请上传你的身份证正面图片
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">身份证反面</label>
+                        <div class="col-xs-10">
+                            <div class="controls">
+                                <input type="file" id="upload_picture_idcard_back">
+                                <div class="upload-img-box-idcard-back border" style="width: 300px">
+                                    <div style="font-size:1em;color: #CCCCCC;text-align: center">
+                                        暂无图片
+                                    </div>
+                                </div>
+                                <input type="hidden" name="idcard_back" id="idcard_back" value="{$model.idcard_back}"/>
+                            </div>
+                            <div class="tip-in-form">
+                                <i class="icon icon-info-sign"></i>
+                                请上传你的身份证反面图片
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">手持身份证照片</label>
+                        <div class="col-xs-10">
+                            <div class="controls">
+                                <input type="file" id="upload_picture_idcard_hand">
+                                <div class="upload-img-box-idcard-hand border" style="width: 300px">
+                                    <div style="font-size:1em;color: #CCCCCC;text-align: center">
+                                        暂无图片
+                                    </div>
+                                </div>
+                                <input type="hidden" name="idcard_hand" id="idcard_hand" value="{$model.idcard_hand}"/>
+                            </div>
+                            <div class="tip-in-form">
+                                <i class="icon icon-info-sign"></i>
+                                请上传你手持身份证照片
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label"></label>
+                        <div class="col-xs-10">
+                            <a type="button" class="btn btn-success ajax-post"
+                               target-form="gerenrenzheng" href="{:U('renzPublish',array('type'=>1))}">保存
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="org tabcontent">
+            <h3 class="h-fix h-fix-thin margin-bottom-15">机构认证</h3>
+            <div class="row margin-top-15">
+                <form id="jigourenzheng" class="form-horizontal center_info ajax-form">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">公司营业执照</label>
+                        <div class="col-xs-10">
+                            <div class="controls">
+                                <input type="file" id="upload_picture_bussiness">
+                                <div class="upload-img-box-bussiness border" style="width: 300px">
+                                    <div style="font-size:1em;color: #CCCCCC;text-align: center">
+                                        暂无图片
+                                    </div>
+                                </div>
+                                <input type="hidden" name="bussiness_card" id="bussiness_card" value="{$model.bussiness_card}"/>
+                            </div>
+                            <div class="tip-in-form">
+                                <i class="icon icon-info-sign"></i>
+                                请上传你的公司营业执照
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">公司logo</label>
+                        <div class="col-xs-10">
+                            <div class="controls">
+                                <input type="file" id="upload_picture_bussiness_logo">
+                                <div class="upload-img-box-bussiness-logo border" style="width: 300px">
+                                    <div style="font-size:1em;color: #CCCCCC;text-align: center">
+                                        暂无图片
+                                    </div>
+                                </div>
+                                <input type="hidden" name="bussiness_logo" id="bussiness_logo" value="{$model.bussiness_logo}"/>
+                            </div>
+                            <div class="tip-in-form">
+                                <i class="icon icon-info-sign"></i>
+                                请上传你的公司logo
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label"></label>
+                        <div class="col-xs-10">
+                            <a type="button" class="btn btn-success ajax-post"
+                               target-form="jigourenzheng" href="{:U('renzPublish',array('type'=>2))}">保存
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="professional tabcontent">
+            <h3 class="h-fix h-fix-thin">专家认证</h3>
+            <div class="row margin-top-15">
+                <form id="zhuanjiarenzheng" class="form-horizontal center_info ajax-form">
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">公司营业执照</label>
+                        <div class="col-xs-10">
+                            <div class="controls">
+                                <input type="file" id="upload_picture_skill">
+                                <div class="upload-img-box-skill border" style="width: 300px">
+                                    <div style="font-size:1em;color: #CCCCCC;text-align: center">
+                                        暂无图片
+                                    </div>
+                                </div>
+                                <input type="hidden" name="skill_card" id="skill_card" value="{$model.skill_card}"/>
+                            </div>
+                            <div class="tip-in-form">
+                                <i class="icon icon-info-sign"></i>
+                                上传您的职称证明
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">公司logo</label>
+                        <div class="col-xs-10">
+                            <div class="controls">
+                                <input type="file" id="upload_picture_xueli">
+                                <div class="upload-img-box-xueli border" style="width: 300px">
+                                    <div style="font-size:1em;color: #CCCCCC;text-align: center">
+                                        暂无图片
+                                    </div>
+                                </div>
+                                <input type="hidden" name="xueli" id="xueli" value="{$model.xueli}"/>
+                            </div>
+                            <div class="tip-in-form">
+                                <i class="icon icon-info-sign"></i>
+                                请上传你学历证明
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label">公司logo</label>
+                        <div class="col-xs-10">
+                            <div class="controls">
+                                <input type="file" id="upload_picture_xuewei">
+                                <div class="upload-img-box-xuewei border" style="width: 300px">
+                                    <div style="font-size:1em;color: #CCCCCC;text-align: center">
+                                        暂无图片
+                                    </div>
+                                </div>
+                                <input type="hidden" name="xuewei" id="xuewei" value="{$model.xuewei}"/>
+                            </div>
+                            <div class="tip-in-form">
+                                <i class="icon icon-info-sign"></i>
+                                请上传你学位证明
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-xs-2 control-label"></label>
+                        <div class="col-xs-10">
+                            <a type="button" class="btn btn-success ajax-post"
+                               target-form="zhuanjiarenzheng" href="{:U('renzPublish',array('type'=>3))}">保存
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</block>
+
+<block name="script">
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <script>
+        var dataType = 0;
+        $(function () {
+            $('.renz-item').on('click', function () {
+                dataType = $(this).data('type');
+                $('.renz-item').removeClass('active');
+                $('.renz-item').removeClass('noactive');
+                $('.renz-item').addClass('noactive');
+                $(this).removeClass('noactive');
+                $(this).addClass('active');
+
+                $('.renzheng-wapper .tabcontent').removeClass('active');
+
+                switch (dataType) {
+                    case 1:
+                        $('.personal').addClass('active');
+                        break;
+                    case 2:
+                        $('.org').addClass('active');
+                        break;
+                    case 3:
+                        $('.professional').addClass('active');
+                        break;
+                    default:
+                        $('.personal').addClass('active');
+                }
+            });
+
+            $('.renz-item[data-type=1]').click();
+
+            //上传部分
+            $("#upload_picture_idcard").uploadify({
+                "height": 30,
+                "swf": "__STATIC__/uploadify/uploadify.swf",
+                "fileObjName": "download",
+                "buttonText": "正面",
+                "buttonClass": "uploadcover",
+                "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+                "width": 100,
+                'removeTimeout': 1,
+                'fileTypeExts': '*.jpg; *.png; *.gif;',
+                "onUploadSuccess": uploadIdcardPicture,
+                'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+                'onFallback': function () {
+                    alert("{:L('_FLASH_NOT_DETECTED_')}");
+                }, 'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                    //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+                }, 'onUploadComplete': function (file) {
+
+                }, 'onUploadStart': function (file) {
+
+                }, 'onQueueComplete': function (queueData) {
+
+                }
+            });
+            function uploadIdcardPicture(file, data) {
+                var data = $.parseJSON(data);
+                var src = '';
+                if (data.status) {
+                    $("#idcard").val(data.id);
+                    src = data.url || data.path;
+                    $('.upload-img-box-idcard').html(
+                            '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                    );
+                } else {
+                    toast.error("图片上传失败", "{:L('_PROMPT_')}");
+                }
+            }
+
+            $("#upload_picture_idcard_back").uploadify({
+                "height": 30,
+                "swf": "__STATIC__/uploadify/uploadify.swf",
+                "fileObjName": "download",
+                "buttonText": "反面",
+                "buttonClass": "uploadcover",
+                "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+                "width": 100,
+                'removeTimeout': 1,
+                'fileTypeExts': '*.jpg; *.png; *.gif;',
+                "onUploadSuccess": uploadIdcardBackPicture,
+                'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+                'onFallback': function () {
+                    alert("{:L('_FLASH_NOT_DETECTED_')}");
+                }, 'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                    //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+                }, 'onUploadComplete': function (file) {
+
+                }, 'onUploadStart': function (file) {
+
+                }, 'onQueueComplete': function (queueData) {
+
+                }
+            });
+            function uploadIdcardBackPicture(file, data) {
+                var data = $.parseJSON(data);
+                var src = '';
+                if (data.status) {
+                    $("#idcard_back").val(data.id);
+                    src = data.url || data.path;
+                    $('.upload-img-box-idcard-back').html(
+                            '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                    );
+                } else {
+                    toast.error("图片上传失败", "{:L('_PROMPT_')}");
+                }
+            }
+
+            $("#upload_picture_idcard_hand").uploadify({
+                "height": 30,
+                "swf": "__STATIC__/uploadify/uploadify.swf",
+                "fileObjName": "download",
+                "buttonText": "手持照",
+                "buttonClass": "uploadcover",
+                "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+                "width": 100,
+                'removeTimeout': 1,
+                'fileTypeExts': '*.jpg; *.png; *.gif;',
+                "onUploadSuccess": uploadIdcardHandPicture,
+                'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+                'onFallback': function () {
+                    alert("{:L('_FLASH_NOT_DETECTED_')}");
+                }, 'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                    //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+                }, 'onUploadComplete': function (file) {
+
+                }, 'onUploadStart': function (file) {
+
+                }, 'onQueueComplete': function (queueData) {
+
+                }
+            });
+            function uploadIdcardHandPicture(file, data) {
+                var data = $.parseJSON(data);
+                var src = '';
+                if (data.status) {
+                    $("#idcard_hand").val(data.id);
+                    src = data.url || data.path;
+                    $('.upload-img-box-idcard-hand').html(
+                            '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                    );
+                } else {
+                    toast.error("图片上传失败", "{:L('_PROMPT_')}");
+                }
+            }
+
+            // 机构上传部分
+            $("#upload_picture_bussiness").uploadify({
+                "height": 30,
+                "swf": "__STATIC__/uploadify/uploadify.swf",
+                "fileObjName": "download",
+                "buttonText": "营业执照",
+                "buttonClass": "uploadcover",
+                "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+                "width": 100,
+                'removeTimeout': 1,
+                'fileTypeExts': '*.jpg; *.png; *.gif;',
+                "onUploadSuccess": uploadbussinessPicture,
+                'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+                'onFallback': function () {
+                    alert("{:L('_FLASH_NOT_DETECTED_')}");
+                }, 'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                    //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+                }, 'onUploadComplete': function (file) {
+
+                }, 'onUploadStart': function (file) {
+
+                }, 'onQueueComplete': function (queueData) {
+
+                }
+            });
+            function uploadbussinessPicture(file, data) {
+                var data = $.parseJSON(data);
+                var src = '';
+                if (data.status) {
+                    $("#bussiness_card").val(data.id);
+                    src = data.url || data.path;
+                    $('.upload-img-box-bussiness').html(
+                            '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                    );
+                } else {
+                    toast.error("图片上传失败", "{:L('_PROMPT_')}");
+                }
+            }
+
+            $("#upload_picture_bussiness_logo").uploadify({
+                "height": 30,
+                "swf": "__STATIC__/uploadify/uploadify.swf",
+                "fileObjName": "download",
+                "buttonText": "公司logo",
+                "buttonClass": "uploadcover",
+                "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+                "width": 100,
+                'removeTimeout': 1,
+                'fileTypeExts': '*.jpg; *.png; *.gif;',
+                "onUploadSuccess": uploadbussinessLogoPicture,
+                'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+                'onFallback': function () {
+                    alert("{:L('_FLASH_NOT_DETECTED_')}");
+                }, 'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                    //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+                }, 'onUploadComplete': function (file) {
+
+                }, 'onUploadStart': function (file) {
+
+                }, 'onQueueComplete': function (queueData) {
+
+                }
+            });
+            function uploadbussinessLogoPicture(file, data) {
+                var data = $.parseJSON(data);
+                var src = '';
+                if (data.status) {
+                    $("#bussiness_logo").val(data.id);
+                    src = data.url || data.path;
+                    $('.upload-img-box-bussiness-logo').html(
+                            '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                    );
+                } else {
+                    toast.error("图片上传失败", "{:L('_PROMPT_')}");
+                }
+            }
+
+            // 专家上传部分
+            $("#upload_picture_skill").uploadify({
+                "height": 30,
+                "swf": "__STATIC__/uploadify/uploadify.swf",
+                "fileObjName": "download",
+                "buttonText": "职称证书",
+                "buttonClass": "uploadcover",
+                "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+                "width": 100,
+                'removeTimeout': 1,
+                'fileTypeExts': '*.jpg; *.png; *.gif;',
+                "onUploadSuccess": uploadSkillPicture,
+                'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+                'onFallback': function () {
+                    alert("{:L('_FLASH_NOT_DETECTED_')}");
+                }, 'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                    //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+                }, 'onUploadComplete': function (file) {
+
+                }, 'onUploadStart': function (file) {
+
+                }, 'onQueueComplete': function (queueData) {
+
+                }
+            });
+            function uploadSkillPicture(file, data) {
+                var data = $.parseJSON(data);
+                var src = '';
+                if (data.status) {
+                    $("#skill_card").val(data.id);
+                    src = data.url || data.path;
+                    $('.upload-img-box-skill').html(
+                            '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                    );
+                } else {
+                    toast.error("图片上传失败", "{:L('_PROMPT_')}");
+                }
+            }
+
+            $("#upload_picture_xueli").uploadify({
+                "height": 30,
+                "swf": "__STATIC__/uploadify/uploadify.swf",
+                "fileObjName": "download",
+                "buttonText": "学历证书",
+                "buttonClass": "uploadcover",
+                "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+                "width": 100,
+                'removeTimeout': 1,
+                'fileTypeExts': '*.jpg; *.png; *.gif;',
+                "onUploadSuccess": uploadXueliPicture,
+                'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+                'onFallback': function () {
+                    alert("{:L('_FLASH_NOT_DETECTED_')}");
+                }, 'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                    //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+                }, 'onUploadComplete': function (file) {
+
+                }, 'onUploadStart': function (file) {
+
+                }, 'onQueueComplete': function (queueData) {
+
+                }
+            });
+            function uploadXueliPicture(file, data) {
+                var data = $.parseJSON(data);
+                var src = '';
+                if (data.status) {
+                    $("#xueli").val(data.id);
+                    src = data.url || data.path;
+                    $('.upload-img-box-xueli').html(
+                            '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                    );
+                } else {
+                    toast.error("图片上传失败", "{:L('_PROMPT_')}");
+                }
+            }
+
+            $("#upload_picture_xuewei").uploadify({
+                "height": 30,
+                "swf": "__STATIC__/uploadify/uploadify.swf",
+                "fileObjName": "download",
+                "buttonText": "学位证书",
+                "buttonClass": "uploadcover",
+                "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+                "width": 100,
+                'removeTimeout': 1,
+                'fileTypeExts': '*.jpg; *.png; *.gif;',
+                "onUploadSuccess": uploadXueweiPicture,
+                'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+                'onFallback': function () {
+                    alert("{:L('_FLASH_NOT_DETECTED_')}");
+                }, 'onUploadProgress': function (file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                    //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+                }, 'onUploadComplete': function (file) {
+
+                }, 'onUploadStart': function (file) {
+
+                }, 'onQueueComplete': function (queueData) {
+
+                }
+            });
+            function uploadXueweiPicture(file, data) {
+                var data = $.parseJSON(data);
+                var src = '';
+                if (data.status) {
+                    $("#xuewei").val(data.id);
+                    src = data.url || data.path;
+                    $('.upload-img-box-xuewei').html(
+                            '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                    );
+                } else {
+                    toast.error("图片上传失败", "{:L('_PROMPT_')}");
+                }
+            }
+        });
+    </script>
+</block>

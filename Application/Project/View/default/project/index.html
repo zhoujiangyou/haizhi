@@ -1,0 +1,117 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <!-- 标题栏 -->
+    <div class="main-title">
+        <h2>{:L('_PROJECR_LIST_')}</h2>
+    </div>
+    <div class="clearfix">
+        <div class="col-xs-10">
+            <button class="btn btn-info ajax-post" url="{:U('/Admin/Project/audit')}"
+                    target-form="ids">{:L('_PROJECT_AUDIT_')}
+            </button>
+            <button class="btn btn-danger ajax-post" url="{:U('/Admin/Project/setstatus')}"
+                    target-form="ids">{:L('_PROJECT_DELETE_')}
+            </button>
+        </div>
+
+        <!-- 高级搜索 -->
+        <div class="search-form  col-xs-2 text-right">
+            <div class="input-group">
+                <input type="text" name="name" class="search-input form-control" value="{:I('name')}"
+                       placeholder="{:L('_PROJECTID_OR_PROJECTNAME_')}">
+                <span class="input-group-btn">  <a class="btn btn-default" href="javascript:;" id="search" url="{:U('index')}"><i class="icon-search"></i></a></span>
+            </div>
+        </div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table with-padding">
+        <table class="table table-bordered table-striped ">
+            <thead>
+            <tr>
+                <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+                <th class="">{:L('_PROJECTID_')}</th>
+                <th class="">{:L('_PROJECTNAME_')}</th>
+                <th class="">{:L('_PROJECT_CREATER_')}</th>
+                <th class="">{:L('_PROJECT_CATEGORY_')}</th>
+                <th class="">{:L('_PROJECT_CREATE_TIME_')}</th>
+                <th class="">{:L('_PROJECT_STATUS_')}</th>
+                <th class="">{:L('_PROJECT_OPERATION_')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="_list">
+                <volist name="_list" id="vo">
+                    <tr>
+                        <td><input class="ids" type="checkbox" name="id[]" value="{$vo.project_id}"/></td>
+                        <td>{$vo.project_id}</td>
+                        <td><a  data-type="iframe"  data-url="{:U('/ucenter/index/information',array('uid'=>$vo['uid']))}"  data-toggle="modal">{$vo.project_name}</a></td>
+                        <td><a href="{:U('/ucenter/index/information',array('uid'=>$vo['uid']))}" >{$vo.nickname}</a></td>
+                        <td>{$vo.category_name}</td>
+                        <td>{$vo.project_create_time}</td>
+                        <td>{$vo.status_text}</td>
+                        <td>
+                            <a class="btn" href="{:U('/Admin/project/update',array('id'=>$vo['project_id']))}" >修改信息</a>
+                            <div class="btn-group">
+                                <button id="btnGroupDrop1" type="button" class="btn dropdown-toggle" data-toggle="dropdown">添加项目附加信息<span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="btnGroupDrop1">
+                                    <li><a class="btn" href="{:U('/Admin/project/coreteamer',array('id'=>$vo['project_id']))}" >核心成员信息</a></li>
+                                    <li><a class="btn" href="{:U('/Admin/project/growdata',array('id'=>$vo['project_id']))}" >成长数据</a></li>
+                                    <li><a class="btn" href="{:U('/Admin/project/producttest',array('id'=>$vo['project_id']))}" >产品测试</a></li>
+                                    <li><a class="btn" href="{:U('/Admin/project/news',array('id'=>$vo['project_id']))}" >新闻报道</a></li>
+                                    <li><a class="btn" href="{:U('/Admin/project/event',array('id'=>$vo['project_id']))}" >项目大纪事</a></li>
+                                    <li><a class="btn" href="{:U('/Admin/project/teacher',array('id'=>$vo['project_id']))}" >顾问导师</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="9" class="text-center">{:L('_PROJECT_DATA_EMPTY_')}</td>
+            </notempty>
+            </tbody>
+        </table>
+    </div>
+    <div class="with-padding">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        //搜索功能
+        $("#search").click(function () {
+            var url = $(this).attr('url');
+            var query = $('.search-form').find('input').serialize();
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g, '');
+            query = query.replace(/^&/g, '');
+            if (url.indexOf('?') > 0) {
+                url += '&' + query;
+            } else {
+                url += '?' + query;
+            }
+            window.location.href = url;
+        });
+        //回车搜索
+        $(".search-input").keyup(function (e) {
+            if (e.keyCode === 13) {
+                $("#search").click();
+                return false;
+            }
+        });
+
+    </script>
+
+    <style>
+     .project_description p {
+         width:180px;
+         white-space: nowrap;
+         word-wrap: normal;
+         overflow: hidden;
+         -ms-text-overflow: ellipsis;
+         -o-text-overflow: ellipsis;
+         -webkit-text-overflow: ellipsis;
+         text-overflow: ellipsis;
+     }
+    </style>
+</block>

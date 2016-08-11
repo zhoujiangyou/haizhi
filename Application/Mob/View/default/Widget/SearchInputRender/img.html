@@ -1,0 +1,22 @@
+<!--插入图片-->
+<input type="hidden" id="one_img_id" name="{$field.name}" value="">
+<div class="am-cf " style="padding: 10px;">
+    <div class="am-fl">
+        <div class="img_btn">
+            <i class="am-icon-plus" style="font-size: 25px;padding: 12px 20px;"></i>
+        </div>
+
+        <input type="file" name="files" id="chooseOne" class=" am-btn"
+               style="left:21px;top: 245px;position:absolute;z-index: 1;width: 72px;height:72px;opacity: 0;cursor: pointer;"
+               data-url="{:U('Core/File/uploadPicture')}">
+    </div>
+    <div class="show_cover am-fl" style="display:none;margin-left: 10px;">
+        <div id="cover_url">
+            <img class="cover_img" src="">
+        </div>
+    </div>
+</div>
+        <script>
+            add_one_img();
+        </script>
+<!--插入图片结束-->

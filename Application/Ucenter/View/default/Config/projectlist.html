@@ -1,0 +1,147 @@
+<extend name="Config/base" />
+<block name="body">
+    <div class="usercenter-content-td">
+        <div class="container">
+            <ul class="nav nav-secondary class-li-status">
+                <li class="active" data-a="0">
+                    <a href="#fabu" data-toggle="tab">已发布项目</a>
+                </li>
+                <li class="" data-a="1">
+                    <a href="#shenhe" data-toggle="tab">审核中的项目</a>
+                </li>
+                <li class="" data-a="2">
+                    <a href="#caogao" data-toggle="tab">草稿</a>
+                </li>
+            </ul>
+            <div class="row tab-content padding-20">
+                <div class="tab-pane active" id="fabu">
+                    <volist name="projects" id="item" empty="$empty">
+                        <if condition="$item.status eq 1">
+                            <div class="row margin-b-15 padding-b-15 border-bottom">
+                                <div class="col-xs-3">
+                                    <div class="list-image-item" style="background-image: url('{$item.path}')"></div>
+                                </div>
+                                <div class="col-xs-9">
+                                    <h5 class="margin-top-5">{$item.project_name}</h5>
+                                    <div>
+                                        <div class="font-sm">
+                                            <span><i class="icon icon-time padding-r-3 gray"></i>项目创建于:{$item.project_create_time}</span>
+                                            <span class="padding-l-15"><i class="icon icon-time padding-r-3 gray"></i>最后编辑:{$item.project_update_time}</span>
+                                        </div>
+                                    </div>
+                                    <div class="padding-top-5">
+                                        {$item.short_desc}
+                                    </div>
+                                    <div class="margin-top-10">
+                                        <a href="{:U('projectedit',array('id'=>$item['project_id']))}" class="btn btn-sm">编辑</a>
+                                        <a href="{:U('changeProjectStatus',array('id'=>$item['project_id'],'status'=>-2))}" class="btn btn-sm ajax-post">放回草稿箱</a>
+                                        <a href="{:U('changeProjectStatus',array('id'=>$item['project_id'],'status'=>-1))}" class="btn btn-danger btn-sm ajax-post">删除此项目</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </if>
+                    </volist>
+                </div>
+                <div class="tab-pane" id="shenhe">
+                    <volist name="projects" id="item" empty="$empty">
+                        <if condition="$item.status eq 0">
+                            <div class="row margin-b-15 padding-b-15 border-bottom">
+                                <div class="col-xs-3">
+                                    <div class="list-image-item" style="background-image: url('{$item.path}')"></div>
+                                </div>
+                                <div class="col-xs-9">
+                                    <h5 class="margin-top-5">{$item.project_name}</h5>
+                                    <div>
+                                        <div class="font-sm">
+                                            <span><i class="icon icon-time padding-r-3 gray"></i>项目创建于:{$item.project_create_time}</span>
+                                            <span class="padding-l-15"><i class="icon icon-time padding-r-3 gray"></i>最后编辑:{$item.project_update_time}</span>
+                                        </div>
+                                    </div>
+                                    <div class="padding-top-5">
+                                        {$item.short_desc}
+                                    </div>
+                                    <div class="margin-top-10">
+                                        <a href="{:U('projectedit',array('id'=>$item['project_id']))}" class="btn btn-sm">编辑</a>
+                                        <a href="{:U('changeProjectStatus',array('id'=>$item['project_id'],'status'=>-2))}" class="btn btn-sm ajax-post">放回草稿箱</a>
+                                        <a href="{:U('changeProjectStatus',array('id'=>$item['project_id'],'status'=>-1))}" class="btn btn-danger btn-sm ajax-post">删除此项目</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </if>
+                    </volist>
+                </div>
+                <div class="tab-pane" id="caogao">
+                    <volist name="projects" id="item" empty="$empty">
+                        <if condition="$item.status eq -2">
+                            <div class="row margin-b-15 padding-b-15 border-bottom">
+                                <div class="col-xs-3">
+                                    <div class="list-image-item" style="background-image: url('{$item.path}')"></div>
+                                </div>
+                                <div class="col-xs-9">
+                                    <h5 class="margin-top-5">{$item.project_name}</h5>
+                                    <div>
+                                        <div class="font-sm">
+                                            <span><i class="icon icon-time padding-r-3 gray"></i>项目创建于:{$item.project_create_time}</span>
+                                            <span class="padding-l-15"><i class="icon icon-time padding-r-3 gray"></i>最后编辑:{$item.project_update_time}</span>
+                                        </div>
+                                    </div>
+                                    <div class="padding-top-5">
+                                        {$item.short_desc}
+                                    </div>
+                                    <div class="margin-top-10">
+                                        <a href="{:U('projectedit',array('id'=>$item['project_id']))}" class="btn btn-sm">编辑</a>
+                                        <a href="{:U('changeProjectStatus',array('id'=>$item['project_id'],'status'=>0))}" class="btn btn-sm ajax-post">发布</a>
+                                        <a href="{:U('changeProjectStatus',array('id'=>$item['project_id'],'status'=>-1))}" class="btn btn-danger btn-sm ajax-post">删除此项目</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </if>
+                    </volist>
+                </div>
+            </div>
+        </div>
+    </div>
+</block>
+<block name="footer-script">
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <script type="text/javascript">
+
+    function setCookie(name, value) {
+        document.cookie = name + "=" + escape(value);
+    }
+
+    function getCookie(name) {
+        var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+        if (arr = document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+
+    function delCookie(name) {
+        var exp = new Date();
+        exp.setTime(exp.getTime() - 1);
+        var cval = getCookie(name);
+        if (cval != null)
+            document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+    }
+
+    $(function() {
+        $('#project_publish_list').addClass('active');
+
+        $('.class-li-status li').on('click', function() {
+            var hehe = $(this).attr('data-a');
+            setCookie('tag', hehe);
+        })
+
+        var he = getCookie('tag');
+        // console.log(he)
+        if (he !=0 ) {
+            $('.class-li-status li').removeClass('active');
+            $('.tab-content .tab-pane').removeClass('active');
+            $('.class-li-status li:eq('+he+')').addClass('active');
+            $('.tab-content .tab-pane:eq('+he+')').addClass('active');
+        }
+    })
+    </script>
+</block>

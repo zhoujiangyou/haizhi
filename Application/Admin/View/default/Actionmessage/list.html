@@ -1,0 +1,94 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <!-- 标题栏 -->
+    <div class="main-title">
+        <h2>{:L('_ACTION_MESSAGE_LIST_')}</h2>
+    </div>
+    <div class="clearfix">
+        <div class="col-xs-10">
+            <a class="btn btn-info" href="{:U('/Admin/actionmessage/add')}"
+                    target-form="ids">{:L('_ACTION_MESSAGE_ADD_')}
+            </a>
+            <button class="btn btn-danger ajax-post" url="{:U('/Admin/actionmessage/delete')}"
+                    target-form="ids">{:L('_ACTION_MESSAGE_DELETE_')}
+            </button>
+        </div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table with-padding">
+        <table class="table table-bordered table-striped ">
+            <thead>
+            <tr>
+                <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+                <th class="">id</th>
+                <th class="">行为地址</th>
+                <th class="">是否发送短信</th>
+                <th class="">是否发送站内信</th>
+                <th class="">是否发送邮件</th>
+                <th class="">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="_list">
+                <volist name="_list" id="vo">
+                    <tr>
+                        <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.action_name}</td>
+                        <td>
+                            <if condition="$vo.is_sms eq 1"> <i class="icon icon-check"></i>
+                                <else /><i class="icon icon-times"></i>
+                            </if>
+                        </td>
+                        <td>
+                            <if condition="$vo.is_message eq 1"> <i class="icon icon-check"></i>
+                                <else /><i class="icon icon-times"></i>
+                            </if>
+                        </td>
+                        <td>
+                            <if condition="$vo.is_email eq 1"> <i class="icon icon-check"></i>
+                                <else /><i class="icon icon-times"></i>
+                            </if>
+                        </td>
+                        <td>
+                            <a class="btn" href="{:U('Admin/actionmessage/update',array('id'=>$vo['id']))}" >修改信息</a>
+                        </td>
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="9" class="text-center">{:L('_PROJECT_DATA_EMPTY_')}</td>
+            </notempty>
+            </tbody>
+        </table>
+    </div>
+    <div class="with-padding">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        //搜索功能
+        $("#search").click(function () {
+            var url = $(this).attr('url');
+            var query = $('.search-form').find('input').serialize();
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g, '');
+            query = query.replace(/^&/g, '');
+            if (url.indexOf('?') > 0) {
+                url += '&' + query;
+            } else {
+                url += '?' + query;
+            }
+            window.location.href = url;
+        });
+        //回车搜索
+        $(".search-input").keyup(function (e) {
+            if (e.keyCode === 13) {
+                $("#search").click();
+                return false;
+            }
+        });
+
+    </script>
+</block>

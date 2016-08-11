@@ -1,0 +1,557 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <include file="Public/head" />
+    <link href="__CSS__/project-detail.css" type="text/css" rel="stylesheet">
+    <link href="__CSS__/animate.css" type="text/css" rel="stylesheet">
+    <link href="__CSS__/owl.carousel.css" type="text/css" rel="stylesheet">
+    <link href="__CSS__/owl.theme.default-my.css" type="text/css" rel="stylesheet">
+    <php> D('Member')->need_login();</php>
+</head>
+
+<body>
+    <include file="Public/header" />
+    <div class="main-wrapper">
+        <section class="project-container">
+            <div class="banner">
+                <div class="container">
+                    <div class="top-info">
+                        <div class="col-sm-2 top-info-left">
+                            <div class="text-center">
+                                <img alt="image" class="img-rounded " src="{$project.pro_logo}" width="200">
+                            </div>
+                        </div>
+                        <div class="col-sm-4 top-info-center">
+                            <h3><strong>{$project.project_name}</strong></h3>
+                            <p style="margin-top:20px;">
+                                <span class="shortdesc">{$project.shortdesc}</span>
+                                <br>
+                                <span class="info-tag">{$project.category}</span>
+                                <br>
+                                <notempty name="project.country">
+                                <i class="fa fa-map-marker"></i>
+                                <span class="address">&nbsp;&nbsp;{$project.country}</span>
+                                </notempty>
+                                <!-- <span class="address">{$project.country}&nbsp;&nbsp;&nbsp;&nbsp;{$project.province}&nbsp;&nbsp;&nbsp;&nbsp;{$proejct.city}</span> -->
+                            </p>
+                        </div>
+                        <div class="col-sm-4 top-info-center">
+                            <p>
+                                <notempty name="project.competitive_edge.num0.advantage0">
+                                    <div class="advantage" style="line-height:25px;">{$project.competitive_edge.num0.advantage0} ： {$project.competitive_edge.num0.describe0}</div>
+                                </notempty>
+                                <notempty name="project.competitive_edge.num1.advantage1">
+                                    <div class="advantage" style="line-height:25px;">{$project.competitive_edge.num1.advantage1} ： {$project.competitive_edge.num1.describe1}</div>
+                                </notempty>
+                                <notempty name="project.competitive_edge.num2.advantage2">
+                                    <div class="advantage" style="line-height:25px;">{$project.competitive_edge.num2.advantage2} ： {$project.competitive_edge.num2.describe2}</div>
+                                </notempty>
+                                <br>
+                                <notempty name="project.need_res.yi.need_resource1">
+                                    <div class="advantage" style="line-height:25px;">{$project.need_res.yi.need_resource1}： {$project.need_res.yi.need_resource1_desc}</div>
+                                </notempty>
+                                <notempty name="project.need_res.er.need_resource2">
+                                    <div class="advantage" style="line-height:25px;">{$project.need_res.er.need_resource2}：{$project.need_res.er.need_resource2_desc} </div>
+                                </notempty>
+                                <notempty name="project.need_res.san.need_resource3">
+                                    <div class="advantage" style="line-height:25px;">{$project.need_res.san.need_resource3}：{$project.need_res.san.need_resource3_desc} </div>
+                                </notempty>
+                            </p>
+                        </div>
+                        <div class="col-sm-2 top-info-right">
+                            <div>
+                                <i class="fa fa-star-o"></i>&nbsp;&nbsp;&nbsp;关注（640）
+                                <br>
+                                <i class="fa fa-share-alt"></i>&nbsp;&nbsp;&nbsp;分享
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <!--项目信息-->
+            <div id="main-container">
+                <div class="">
+                    <div class="sub-nav">
+                        <div class="container" style="position: relative">
+                            <ul class="horizontal menu" data-magellan>
+                                <li class="menu_change"><a href="#companyinfo">项目详情</a></li>
+                                <li class="menu_change"><a href="#shichangxinxi">市场信息</a></li>
+                                <li class="menu_change"><a href="#hexinchengyuan">核心成员</a></li>
+                                <li class="menu_change"><a href="#xiangmujishi">项目记事</a></li>
+                                <li class="menu_change"><a href="#xinwenbaodao">新闻报道</a></li>
+                                <li class="menu_change"><a href="#chengzhangshuju">成长数据</a></li>
+                                <li class="menu_change"><a href="#hexinxqiu">核心需求</a></li>
+                            </ul>
+                            <div class="op-wapper">
+                                <a class="hidden" href="javascript:void(0)"><i class="icon icon-heart" style="padding-right: 5px;"></i>我感兴趣</a>
+                                <a class="" href="/ucenter/config/projectedit.html"><i class="icon icon-plus" style="padding-right: 5px;"></i>发布项目</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sections">
+                        <section class="companyinfo-wapper">
+                            <section class="companyinfo" id="companyinfo" data-magellan-target="companyinfo">
+                                <div class="container">
+                                    <div class="text-left"> <i class="fa fa-file-text icon-2x"></i>
+                                        <h3>项目详情</h3></div>
+                                    <notempty name="project.description">
+                                        <div class="col-xs-12 info-item ">
+                                            <div class="desc-wapper">
+                                                <div class="font-large">
+                                                    <div class="">行业类别</div>
+                                                </div>
+                                                <div class="desc">
+                                                    {$project.category}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </notempty>
+                                    <notempty name="project.description">
+                                        <div class="col-xs-12 info-item ">
+                                            <div class="desc-wapper">
+                                                <div class="font-large">
+                                                    <div class="">项目介绍</div>
+                                                </div>
+                                                <div class="desc">
+                                                    {$project.description}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </notempty>
+                                    <notempty name="project.description">
+                                        <div class="col-xs-12 info-item ">
+                                            <div class="desc-wapper">
+                                                <div class="font-large">
+                                                    <div class="">产品介绍</div>
+                                                </div>
+                                                <div class="desc">
+                                                    {$project.proinstruction}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </notempty>
+                                    <notempty name="project.pro_imgs">
+                                        <div class="col-xs-12 info-item ">
+                                            <div class="desc-wapper">
+                                                <div class="font-large">
+                                                    <div class="">产品快照</div>
+                                                </div>
+                                                <div class="desc">
+                                                    <img src="{$project.pro_imgs}" alt="" width="300" height="200" style="margin-right:20px ">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </notempty>
+                                    <notempty name="product">
+                                        <div class="col-xs-12 info-item ">
+                                            <div class="desc-wapper">
+                                                <div class="font-large">
+                                                    <div class="">产品测试</div>
+                                                </div>
+                                                <notempty name="product.weibo">
+                                                    <div class="desc">
+                                                        <div class="title_new">微博：</div>
+                                                        <div class="content_new">{$product.weibo}</div>
+                                                    </div>
+                                                </notempty>
+                                                <notempty name="product.wechat">
+                                                    <div class="desc">
+                                                        <div class="title_new">微信：</div>
+                                                        <div class="content_new">{$product.wechat}</div>
+                                                    </div>
+                                                </notempty>
+                                                <notempty name="product.website">
+                                                    <div class="desc">
+                                                        <div class="title_new">网站：</div>
+                                                        <div class="content_new">{$product.website}</div>
+                                                    </div>
+                                                </notempty>
+                                                <notempty name="product.apk">
+                                                    <div class="desc">
+                                                        <div class="title_new">apk：</div>
+                                                        <div class="content_new">{$product.apk}</div>
+                                                    </div>
+                                                </notempty>
+                                                <notempty name="product.ios">
+                                                    <div class="desc">
+                                                        <div class="title_new">ios：</div>
+                                                        <div class="content_new">{$product.ios}</div>
+                                                    </div>
+                                                </notempty>
+                                                <notempty name="product.account">
+                                                    <div class="desc">
+                                                        <div class="title_new">账户：</div>
+                                                        <div class="content_new">{$product.account}</div>
+                                                    </div>
+                                                </notempty>
+                                                <notempty name="product.password">
+                                                    <div class="desc">
+                                                        <div class="title_new">密码：</div>
+                                                        <div class="content_new">{$product.password}</div>
+                                                    </div>
+                                                </notempty>
+                                            </div>
+                                        </div>
+                                    </notempty>
+                                </div>
+                            </section>
+                        </section>
+                        <notempty name="project.market_research">
+                            <section class="companyinfo-wapper">
+                                <div class="companyinfo" id="shichangxinxi" data-magellan-target="shichangxinxi">
+                                    <div class="container">
+                                        <div class="text-left"> <i class="fa fa-paper-plane-o icon-2x"></i>
+                                            <h3>市场信息</h3></div>
+                                        <notempty name="project.description">
+                                            <div class="col-xs-12 info-item ">
+                                                <div class="desc-wapper">
+                                                    <div class="font-large">
+                                                        <div class="">市场调研</div>
+                                                    </div>
+                                                    <notempty name="project.market_research.yonghuguimo">
+                                                        <div class="desc">
+                                                            <div class="title_new">用户规模：</div>
+                                                            <div class="content_new">{$project.market_research.yonghuguimo}{$project.market_research.yonghuguimodanwei}</div>
+                                                        </div>
+                                                    </notempty>
+                                                    <notempty name="project.market_research.shichangguimo">
+                                                        <div class="desc">
+                                                            <div class="title_new">市场规模：</div>
+                                                            <div class="content_new">{$project.market_research.shichangguimo}{$project.market_research.shichangguimodanwei}</div>
+                                                        </div>
+                                                    </notempty>
+                                                    <notempty name="project.market_research.shichangleibie">
+                                                        <div class="desc">
+                                                            <div class="title_new">市场类型：</div>
+                                                            <div class="content_new">{$project.market_research.shichangleibie}</div>
+                                                        </div>
+                                                    </notempty>
+                                                </div>
+                                            </div>
+                                        </notempty>
+                                        <notempty name="project.duibiao_comp.duibiaocomp">
+                                            <div class="col-xs-12 info-item ">
+                                                <div class="desc-wapper">
+                                                    <div class="font-large">
+                                                        <div class="">对标公司</div>
+                                                    </div>
+                                                    <notempty name="project.duibiao_comp.duibiaocomp">
+                                                        <div class="desc">
+                                                            <div class="title_new">对标公司：</div>
+                                                            <div class="content_new">{$project.duibiao_comp.duibiaocomp}</div>
+                                                        </div>
+                                                    </notempty>
+                                                    <notempty name="project.duibiao_comp.website">
+                                                        <div class="desc">
+                                                            <div class="title_new">官方网站：</div>
+                                                            <div class="content_new">{$project.duibiao_comp.website}</div>
+                                                        </div>
+                                                    </notempty>
+                                                    <notempty name="project.duibiao_comp.jinqiguzhi">
+                                                        <div class="desc">
+                                                            <div class="title_new">近期估值：</div>
+                                                            <div class="content_new">{$project.duibiao_comp.jinqiguzhi}</div>
+                                                        </div>
+                                                    </notempty>
+                                                    <notempty name="project.duibiao_comp.guzhishijian">
+                                                        <div class="desc">
+                                                            <div class="title_new">估值时间：</div>
+                                                            <div class="content_new">{$project.duibiao_comp.guzhishijian}</div>
+                                                        </div>
+                                                    </notempty>
+                                                </div>
+                                            </div>
+                                        </notempty>
+                                        <notempty name="project.competitive_edge">
+                                            <div class="col-xs-12 info-item ">
+                                                <div class="desc-wapper">
+                                                    <div class="font-large">
+                                                        <div class="">竞争优势</div>
+                                                    </div>
+                                                    <notempty name="project.competitive_edge.num0.advantage0">
+                                                        <div class="desc">
+                                                            <div class="title_new">{$project.competitive_edge.num0.advantage0} ：</div>
+                                                            <div class="content_new">{$project.competitive_edge.num0.describe0} </div>
+                                                        </div>
+                                                    </notempty>
+                                                    <notempty name="project.competitive_edge.num1.advantage1">
+                                                        <div class="desc">
+                                                            <div class="title_new">{$project.competitive_edge.num1.advantage1}：</div>
+                                                            <div class="content_new">{$project.competitive_edge.num1.describe1} </div>
+                                                        </div>
+                                                    </notempty>
+                                                    <notempty name="project.competitive_edge.num2.advantage2">
+                                                        <div class="desc">
+                                                            <div class="title_new">{$project.competitive_edge.num2.advantage2}：</div>
+                                                            <div class="content_new">{$project.competitive_edge.num2.describe2} </div>
+                                                        </div>
+                                                    </notempty>
+                                                    <notempty name="project.other_edge">
+                                                        <div class="desc">
+                                                            <div class="title_new">其他优势：{$project.other_edge}</div>
+                                                        </div>
+                                                    </notempty>
+                                                </div>
+                                            </div>
+                                        </notempty>
+                                        <notempty name="project.business_model">
+                                            <div class="col-xs-12 info-item ">
+                                                <div class="desc-wapper">
+                                                    <div class="font-large">
+                                                        <div class="">商业模式</div>
+                                                    </div>
+                                                    <div class="desc">
+                                                        {$project.business_model}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </notempty>
+                                    </div>
+                                </div>
+                            </section>
+                        </notempty>
+                        <notempty name="teamers">
+                            <section class="companyinfo-wapper">
+                                <div class="companyinfo" id="hexinchengyuan" data-magellan-target="hexinchengyuan">
+                                    <div class="container">
+                                        <div class="text-left"> <i class="fa fa-users icon-2x"></i>
+                                            <h3>核心成员</h3></div>
+                                        <div class="col-xs-12 info-item ">
+                                            <div class="desc-wapper">
+                                                <div class="font-large">
+                                                    <div class="">我的团队</div>
+                                                </div>
+                                                <div class="desc">
+                                                    <div class="title_new">团队介绍：{$project.team_desc}</div>
+                                                </div>
+                                                <div class="desc">
+                                                    <div class="title_new">团队规模：{$project.team_size} 人 </div>
+                                                </div>
+                                                <volist name="teamers" id="data">
+                                                    <div class="col-sm-2">
+                                                        <div class="desc" style="margin-top: 30px;">
+                                                            <div class="content_new">
+                                                                <img alt="image" class="img-circle m-t-xs img-responsive" src="{$data.path}">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-10">
+                                                        <div class="desc">
+                                                            <div class="title_new">真实姓名：</div>
+                                                            <div class="content_new">{$data.name}</div>
+                                                        </div>
+                                                        <div class="desc">
+                                                            <div class="title_new">项目职位：</div>
+                                                            <div class="content_new">{$data.position}</div>
+                                                        </div>
+                                                        <div class="desc">
+                                                            <div class="title_new">教育经历：</div>
+                                                            <volist name="data['education']" id="education_data">
+                                                                <div class="content_new"> {$education_data.school}--{$education_data.degree}</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            </volist>
+                                                        </div>
+                                                        <div class="desc">
+                                                            <div class="title_new">工作经历：</div>
+                                                            <volist name="data['work_experience']" id="experience_data">
+                                                                <div class="content_new"> {$experience_data.company}--{$experience_data.e_position}</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                                                            </volist>
+                                                        </div>
+                                                        <div class="desc" style="border-bottom:1px solid #ccc;">
+                                                            <div class="title_new">个人介绍：{$data.self_instruction}</div>
+                                                        </div>
+                                                    </div>
+                                                </volist>
+                                            </div>
+                                        </div>
+                                        <notempty name="project.team_imgs">
+                                            <div class="col-xs-12 info-item ">
+                                                <div class="desc-wapper">
+                                                    <div class="font-large">
+                                                        <div class="">团队照片</div>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <notempty name="project.team_imgs">
+                                                            <img src="{$project.team_imgs}" alt="" width="50%" height="50%">
+                                                        <else/>
+                                                            <img src="/Uploads/Picture/default/default_avatar_128_128.jpg" alt="" width="20%" height="20%">
+                                                        </notempty>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </notempty>
+                                    </div>
+                                </div>
+                            </section>
+                        </notempty>
+                        <notempty name="event">
+                            <section class="companyinfo-wapper">
+                                <div class="companyinfo" id="xiangmujishi" data-magellan-target="xiangmujishi">
+                                    <div class="container">
+                                        <div class="text-left"> <i class="fa fa-ioxhost icon-2x"></i>
+                                            <h3>项目记事</h3></div>
+                                        <volist name="event" id="data">
+                                            <div class="col-xs-12 info-item ">
+                                                <div class="desc-wapper">
+
+                                                    <div class="desc">
+                                                        <div class="title_new">类型：</div>
+                                                        <div class="content_new">{$data.type}</div>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <div class="title_new">日期：</div>
+                                                        <div class="content_new">{$data.time}</div>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <div class="title_new">内容：</div>
+                                                        <div class="content_new">{$data.content}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </volist>
+                                    </div>
+                                </div>
+                            </section>
+                        </notempty>
+                        <notempty name="news">
+                            <section class="companyinfo-wapper">
+                                <div class="companyinfo" id="xinwenbaodao" data-magellan-target="xinwenbaodao">
+                                    <div class="container">
+                                        <div class="text-left"> <i class="fa fa-television icon-2x"></i>
+                                            <h3>新闻报道</h3></div>
+                                        <volist name="news" id="data">
+                                            <div class="col-xs-12 info-item ">
+                                                <div class="desc-wapper">
+                                                    <div class="desc">
+                                                        <div class="title_new">时间：</div>
+                                                        <div class="content_new">{$data.time}</div>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <div class="title_new">标题：</div>
+                                                        <div class="content_new">{$data.new_title}</div>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <div class="title_new">网址：</div>
+                                                        <div class="content_new">{$data.new_website}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </volist>
+                                    </div>
+                                </div>
+                            </section>
+                        </notempty>
+                        <notempty name="growdata">
+                            <section class="companyinfo-wapper">
+                                <div class="companyinfo" id="chengzhangshuju" data-magellan-target="chengzhangshuju">
+                                    <div class="container">
+                                        <div class="text-left"> <i class="fa fa-star-half-empty icon-2x"></i>
+                                            <h3>成长数据</h3></div>
+                                        <volist name="growdata" id="data">
+                                            <div class="col-xs-12 info-item ">
+                                                <div class="desc-wapper">
+                                                    <div class="desc">
+                                                        <div class="title_new">时间：</div>
+                                                        <div class="content_new">{$data.time}</div>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <div class="title_new">类型：</div>
+                                                        <div class="content_new">{$data.category}</div>
+                                                    </div>
+                                                    <div class="desc">
+                                                        <div class="title_new">数值：</div>
+                                                        <div class="content_new">{$data.data}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </volist>
+                                    </div>
+                                </div>
+                            </section>
+                        </notempty>
+                        <notempty name="project.need_res">
+                            <section class="companyinfo-wapper">
+                                <div class="companyinfo" id="hexinxqiu" data-magellan-target="hexinxqiu">
+                                    <div class="container">
+                                        <div class="text-left"> <i class="fa fa-hourglass icon-2x"></i>
+                                            <h3>核心需求</h3></div>
+                                        <div class="col-xs-12 info-item ">
+                                            <div class="desc-wapper">
+                                                <notempty name="project.need_res.yi.need_resource1">
+                                                    <div class="desc">
+                                                        <div class="title_new">{$project.need_res.yi.need_resource1}：</div>
+                                                        <div class="content_new">
+                                                            {$project.need_res.yi.need_resource1_desc}</div>
+                                                    </div>
+                                                </notempty>
+                                                <notempty name="project.need_res.er.need_resource2">
+                                                    <div class="desc">
+                                                        <div class="title_new">{$project.need_res.er.need_resource2}：</div>
+                                                        <div class="content_new">{$project.need_res.er.need_resource2_desc}
+                                                        </div>
+                                                    </div>
+                                                </notempty>
+                                                <notempty name="project.need_res.san.need_resource3">
+                                                    <div class="desc">
+                                                        <div class="title_new">{$project.need_res.san.need_resource3}：</div>
+                                                        <div class="content_new">{$project.need_res.san.need_resource3_desc}
+                                                        </div>
+                                                    </div>
+                                                </notempty>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </notempty>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <include file="Public/footer" />
+    <script src="__JS__/owl.carousel.js"></script>
+    <script src="__JS__/owl.carousel.min.js"></script>
+    <script src="__JS__/sticky-kit.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/new-style/js/app.js"></script>
+
+    <script language="JavaScript">
+        $(function() {
+            App.init();
+            $('.sub-nav').stick_in_parent();
+
+            $(".owl-carousel").owlCarousel({
+                items: 3,
+                autoplayHoverPause: true,
+                loop: true,
+                autoplay: true,
+                smartSpeed: 800,
+                navContainer: $('.nav-container'),
+                dotsContainer: $('.dot-container'),
+                nav: true,
+                dots: true,
+                navText: []
+            });
+
+            $('.menu_change').on('click', function() {
+                $('.menu_change_color').removeClass('menu_change_color');
+                $(this).addClass('menu_change_color');
+            });
+
+        });
+    </script>
+    <style>
+        .contact {
+            color: #ddd;
+        }
+        .contact:hover {
+            color: #ddd;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
+</body>
+
+</html>

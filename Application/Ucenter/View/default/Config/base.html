@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <include file="Public/head" />
+    <link href="__CSS__/center.css" type="text/css" rel="stylesheet">
+    <block name="style"></block>
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <include file="Public/header" />
+        <include file="Public/_after_nav" />
+        <div id="main-container" class="container user-config">
+            <div class="row">
+                <div class=" col-xs-2">
+                    <div>
+                        <div class="user-info-panel bg-primary text-center margin_bottom_10">
+                            <div>
+                                <img class="avatar-img" src="{$self.avatar128}">
+                            </div>
+                            <div>
+                                <a class="nickname" href="{$self.space_url}">{$self.nickname}</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <nav class="menu" data-toggle="menu">
+                            <a class="btn" href="{$self.space_url}"><i class="icon-user"></i> {:L('_PERSONAL_PAGE_')} </a>
+                            <a class="btn" href="{:U('renzheng')}"><i class="icon-wrench"></i> 申请认证 </a>
+                            <a class="btn" href="/ucenter/msg"><i class="icon-envelope-alt"></i> 消息中心 </a>
+                            <ul class="nav nav-primary side-menu">
+                                <li id="info"><a href="{:U('index')}"><i class="icon-bars"></i> {:L('_SETTINGS_DATA_')}</a></li>
+                                <!--<li id="tag"><a href="{:U('tag')}"><i class="icon-tag"></i> {:L('_USER_TAG_')}</a></li>-->
+                                <li id="avatar"><a href="{:U('avatar')}"><i class="icon-picture"></i> {:L('_AVATAR_MODIFY_')}</a></li>
+                                <li id="password"><a href="{:U('password')}"><i class="icon-lock"></i> {:L('_PASSWORD_MODIFY_')}</a></li>
+                                <eq name="can_show_role" value="1">
+                                    <li id="role"><a href="{:U('role')}"><i class="icon-group"></i> {:L('_SETTINGS_IDENTITY_')}</a></li>
+                                </eq>
+                                <eq name="can_show_project_publish" value="1">
+                                    <li id="project_publish_list"> <a href="{:U('projectlist')}"> <i class="icon-list"></i> 我的项目 </a> </li>
+                                    <li id="project_publish"> <a href="{:U('projectedit')}"> <i class="icon-save"></i> 发布新项目 </a> </li>
+                                </eq>
+                                <!-- <eq name="can_show_article_publish" value="1">
+                                    <li id="article_publish_list">
+                                        <a href="/mynews">
+                                            <i class="icon icon-file-text-o"></i> 我的文章
+                                        </a>
+                                    </li>
+                                    <li id="article_publish">
+                                        <a href="/news/edit">
+                                            <i class="icon icon-file-text-o"></i> 发布新文章
+                                        </a>
+                                    </li>
+                                </eq> -->
+                                <li id="score"><a href="{:U('score')}"><i class="icon-bar-chart"></i> {:L('_SCORE_MY_')}</a> </li>
+                                <!-- <li id="other"><a href="{:U('other')}"><i class="icon-list-ul"></i> {:L('_OTHER_')}</a> </li> -->
+                                <li id="other"><a href="/admin/index/index.html" target="_blank"><span class="glyphicon glyphicon-dashboard"></span> 管理后台</a></li>
+                                <li id="other"><a event-node="logout"><span class="glyphicon glyphicon-off"></span> 退出登录</a> </li>
+                            </ul>
+                        </nav>
+                        <script>
+                        $("#{$tab}").addClass('active');
+                        </script>
+                    </div>
+                </div>
+                <div class="col-xs-10">
+                    <div id="usercenter-content-td ">
+                        <div class="container-fluid common_block_border" style="min-height: 600px">
+                            <block name="body"></block>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    <include file="Public/footer" />
+    <script>
+    $(function() {
+
+    })
+    </script>
+    <block name="footer-script"></block>
+</body>
+
+</html>

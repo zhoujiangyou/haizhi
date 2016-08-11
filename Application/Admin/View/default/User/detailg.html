@@ -1,0 +1,49 @@
+<div class="container">
+    <div>
+        <div class="col-md-6" style="padding: 5px;"><p><span>申请人名称：{$data.username}</span></p></div>
+        <div class="col-md-6" style="padding: 5px;"><p><span>联系电话：{$data.mobile}</span></p></div>
+    </div>
+    <div>
+        <div class="col-md-6" style="padding: 10px;"> <div style="height: 250px;background-image: url({$data.company_logo});background-size: cover" ></div> </div>
+        <div class="col-md-6" style="padding: 10px;"> <div style="height: 250px;background-image: url({$data.business_image});background-size: cover" ></div> </div>
+    </div>
+    <div>
+        <div class="col-md-6" style="padding: 10px;"> {$data.business_code} </div>
+    </div>
+    <div>
+        <button class="btn btn-info vertify" style="margin-left: 100px;margin-top: 250px">审核通过</button>
+        <button class="btn btn-danger unvertify" style="margin-top: 250px">审核不通过</button>
+        <input class="hidden vertifyid" value="{$data.id}"/>
+    </div>
+</div>
+<block name="script">
+    <script type="text/javascript">
+
+        var id = $('.vertifyid').val();
+
+        function showmsg(data){
+            if(data && data.status == 1 ){
+                var msg = new $.zui.Messager(data.info, {type:'success',placement: 'bottom',time:2000});
+                msg.show();
+                location.href='/admin/user/vertifyb.html';
+            }else{
+                var msg = new $.zui.Messager(data.info, {type:'danger',placement: 'bottom',time:2000});
+                msg.show();
+                location.href='/admin/user/vertifyb.html';
+            }
+        }
+
+        $('.vertify').on('click',function(){
+            $.post("{:U('/admin/user/doVertifyb')}",{id:id},function(data) {
+                showmsg(data);
+            });
+        });
+
+        $('.unvertify').on('click',function(){
+            $.post("{:U('/admin/user/dounvertifyb')}",{id:id},function(data) {
+                showmsg(data);
+            });
+        });
+
+    </script>
+</block>

@@ -1,0 +1,53 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <!-- 标题栏 -->
+    <div class="main-title">
+        <h2>机构认证请求列表</h2>
+    </div>
+    <div class="clearfix">
+        <div class="col-xs-10">
+            <button class="btn btn-danger ajax-post" url="{:U('admin/user/deleteVertifyB')}"
+                    target-form="ids">删除认证记录信息
+            </button>
+        </div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table with-padding">
+        <table class="table table-bordered table-striped ">
+            <thead>
+            <tr>
+                <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+                <th class="">用户id</th>
+                <th class="">用户名称</th>
+                <th class="">认证状态</th>
+                <th class="">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="_list">
+                <volist name="_list" id="vo">
+                    <tr>
+                        <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.username}</td>
+                        <td>{$vo.status_text}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" data-show-header="false" data-remote="{:U('/admin/user/showDetailB',array('id'=>$vo['id']))}" data-toggle="modal">机构身份认证审核</button>
+                        </td>
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="9" class="text-center">暂无认证申请</td>
+            </notempty>
+            </tbody>
+        </table>
+    </div>
+    <div class="with-padding">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+
+</block>

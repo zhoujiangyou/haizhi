@@ -1,0 +1,101 @@
+<extend name="Public/base"/>
+<block name="body">
+    <!-- 标题栏 -->
+    <div class="main-title">
+        <h2>{:L('_PROJECR_LIST_')}</h2>
+    </div>
+    <div class="clearfix">
+        <div class="col-xs-10">
+            <button class="btn ajax-post" url="{:U('/Admin/Article/delete')}"
+                    target-form="ids">{:L('_ARTICLE_DELETE_')}
+            </button>
+        </div>
+
+        <!-- 高级搜索 -->
+        <div class="search-form  col-xs-2 text-right">
+            <div class="input-group">
+                <input type="text" name="name" class="search-input form-control" value="{:I('name')}"
+                       placeholder="{:L('_ARTICLEtitle_OR_ARTICLEid_')}">
+                <span class="input-group-btn">  <a class="btn btn-default" href="javascript:;" id="search" url="{:U('index')}"><i class="icon-search"></i></a></span>
+            </div>
+        </div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table with-padding">
+        <table class="table table-bordered table-striped ">
+            <thead>
+            <tr>
+                <th class="row-selected row-selected"><input class="check-all" type="checkbox"/></th>
+                <th class="">{:L('_ARTICLE_ID')}</th>
+                <th class="">{:L('_ARTICLE_TITLE')}</th>
+                <th class="">{:L('_ARTICLE_CATEGORY_')}</th>
+                <th class="">{:L('_ARTICLE_CREATR_TIME_')}</th>
+                <th class="">{:L('_ARTICLE_CREATR_')}</th>
+                <th class="">{:L('_ARTICLE_STATUS_')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="_list">
+                <volist name="_list" id="vo">
+                    <tr>
+                        <td><input class="ids" type="checkbox" name="id[]" value="{$vo.id}"/></td>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.title}</td>
+                        <td>{$vo.category}</td>
+                        <td>{$vo.create_time}</td>
+                        <td><a href="{:U('/ucenter/index/information',array('uid'=>$vo['uid']))}" >{$vo.nickname}</a></td>
+                        <td>{$vo.status_text}</td>
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="9" class="text-center">{:L('_PROJECT_DATA_EMPTY_')}</td>
+            </notempty>
+            </tbody>
+        </table>
+    </div>
+    <div class="with-padding">
+        {$_page}
+    </div>
+</block>
+
+<block name="script">
+    <script src="__STATIC__/thinkbox/jquery.thinkbox.js"></script>
+
+    <script type="text/javascript">
+        //搜索功能
+        $("#search").click(function () {
+            var url = $(this).attr('url');
+            var query = $('.search-form').find('input').serialize();
+            query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g, '');
+            query = query.replace(/^&/g, '');
+            if (url.indexOf('?') > 0) {
+                url += '&' + query;
+            } else {
+                url += '?' + query;
+            }
+            window.location.href = url;
+        });
+        //回车搜索
+        $(".search-input").keyup(function (e) {
+            if (e.keyCode === 13) {
+                $("#search").click();
+                return false;
+            }
+        });
+        //导航高亮
+//        highlight_subnav("{:U('User/index')}");
+    </script>
+
+    <style>
+     .project_description p {
+         width:180px;
+         white-space: nowrap;
+         word-wrap: normal;
+         overflow: hidden;
+         -ms-text-overflow: ellipsis;
+         -o-text-overflow: ellipsis;
+         -webkit-text-overflow: ellipsis;
+         text-overflow: ellipsis;
+     }
+    </style>
+</block>

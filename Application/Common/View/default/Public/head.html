@@ -1,0 +1,36 @@
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+{:hook('syncMeta')}
+<include file="Public/seo"/>
+<link href="__ZUI__/css/zui.css" rel="stylesheet">
+<link href="__ZUI__/css/zui-theme.css" rel="stylesheet">
+<link href="__PUBLIC__/css/core.css" rel="stylesheet"/>
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/js/ext/magnific/magnific-popup.css"/>
+<link rel="stylesheet" href="__PUBLIC__/new-style/plugins/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="__PUBLIC__/new-style/css/style.css">
+<link rel="stylesheet" href="__PUBLIC__/new-style/plugins/animate.css">
+<link rel="stylesheet" href="__PUBLIC__/new-style/plugins/line-icons/line-icons.css">
+<link rel="stylesheet" href="__PUBLIC__/new-style/plugins/font-awesome/css/font-awesome.css">
+<link rel="stylesheet" href="__PUBLIC__/new-style/css/theme-colors/default.css">
+<link rel="stylesheet" href="__PUBLIC__/new-style/css/headers/header-v1.css">
+<link rel="stylesheet" href="__PUBLIC__/new-style/css/footers/footer-v2.css">
+<link rel="stylesheet" href="__PUBLIC__/new-style/css/custom.css">
+{:hook('syncMeta')}
+<include file="Public/seo"/>
+<script src="__PUBLIC__/js.php?f=js/jquery-2.2.3.min.js,js/com/com.functions.js,js/core.js,js/com/com.toast.class.js,js/com/com.ucard.js"></script>
+<block name="style"></block>
+<include file="Public/var"/>
+<script>
+    var _ROOT_ = "__ROOT__";
+    var MID = "{:is_login()}";
+    var MODULE_NAME="<php>echo MODULE_NAME;</php>";
+    var ACTION_NAME="<php>echo ACTION_NAME;</php>";
+    var CONTROLLER_NAME ="<php>echo CONTROLLER_NAME;</php>";
+    var initNum = "{:modC('WEIBO_NUM',140,'WEIBO')}";
+    function adjust_navbar(){
+        $('#sub_nav').css('top',$('#nav_bar').height());
+        $('#main-container').css('padding-top',$('#nav_bar').height()+$('#sub_nav').height()+20)
+    }
+</script>
+<audio id="music" src="" autoplay="autoplay"></audio>
+{:hook('pageHeader')}

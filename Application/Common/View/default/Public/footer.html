@@ -1,0 +1,72 @@
+<!--=== Footer v2 ===-->
+<div id="footer-v2" class="footer-v2">
+    <div class="footer">
+        <div class="container">
+            <div class="row">
+                <!-- About -->
+                <div class="col-md-3 md-margin-bottom-40">
+                    <php>$logo = get_cover(modC('LOGO',0,'Config'),'path'); $logo = $logo?$logo:'__ROOT__/Public/images/logo.png'; </php>
+                    <a href="{:U('Home/Index/index')}"><img id="logo-footer" class="footer-logo" src="{$logo}" height="40px" alt="" style="position: relative;left:-7px;"></a>
+                    <p class=""> 让海内外科技人才创业更简单</p>
+                    <p class="">客服电话：4000-9110-966</p>
+                    <p class="">工作时间：周一至周五 09:00-18:00</p>
+                </div>
+                <!-- End About -->
+                <!-- Link List -->
+                <div class="col-md-2 md-margin-bottom-40">
+                    <div class="headline">
+                        <h2 class="heading-sm">关于我们</h2></div>
+                    <ul class="list-unstyled link-list">
+                        <li><a href="/helpcenter/index/index/id/5.html">关于海智</a></li>
+                        <li><a href="#">创业政策</a></li>
+                        <li><a href="/helpcenter/index/index.html">帮助中心</a></li>
+                        <li><a href="#">加入我们</a></li>
+                    </ul>
+                </div>
+                <!-- Address -->
+                <div class="col-md-4 md-margin-bottom-40">
+                    <div class="headline">
+                        <h2 class="heading-sm">联系我们</h2></div>
+                    <address class="md-margin-bottom-40">
+                        <i class="fa fa-home"></i>公司：海智之星(武汉)科技服务有限公司
+                        <br/>
+                        <i class="fa fa-flag"></i>地址：湖北省武汉市东湖新技术开发区高新大道999号
+                        <br/>
+                        <i class="fa fa-globe"></i>站点: <a href="#">www.haizhihui.com</a>
+                        <br/>
+                        <i class="fa fa-envelope"></i>Email: <a href="mailto:service@happychou.net">service@happychou.com</a>
+                    </address>
+                </div>
+                <div class="col-md-3 md-margin-bottom-40">
+                    <div class="latest-tweets">
+                        <div class="latest-tweets-inner text-center">
+                            <img src="__ROOT__/Public/images/weichat.png" style="margin-left: 50px;margin-top: 20px;">
+                            <p style="margin-left: 50px">扫描关注公众号</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Address -->
+            </div>
+        </div>
+    </div>
+    <!--/footer-->
+    <div class="copyright">
+        <div class="container">
+            <p class="text-center">
+                本站由 海智之星 提供技术支持 | Copyright ©2016 海智之星 | 鄂-155584874 {$count_code}
+            </p>
+        </div>
+    </div>
+    <!--/copyright-->
+</div>
+<!--=== End Footer v2 ===-->
+<include file="Public/js" />
+<block name="script">
+    <!-- 用于加载js代码 -->
+</block>
+<!-- 页面footer钩子，一般用于加载插件JS文件和JS代码 -->
+{:hook('pageFooter', 'widget')}
+<div class="hidden">
+    <!-- 用于加载统计代码等隐藏元素 -->
+    <block name="hidden"></block>
+</div>

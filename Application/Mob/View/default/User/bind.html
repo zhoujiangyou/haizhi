@@ -1,0 +1,91 @@
+<button title="Close (Esc)" type="button" class="mfp-close" style="display: none;" xmlns="http://www.w3.org/1999/html">
+    ×
+</button>
+<form id="forward" data-url="{:U('Mob/user/bind')}">
+    <div class="" id="my-repost" style="width:95%;margin:0 auto;">
+        <div class="am-modal-dialog">
+            <div class="am-modal-bd weibo_post_box">
+                <label>{$title}</label>
+
+                <div class="tab-pane">
+                    <input class="am-radius" style="width: 75%;float: left;height: 35px" placeholder="{$title}" type="text"
+                           name="{$type}"
+                           value="">
+                    <input type="hidden" name="reg_type" value="{$type}">
+                    <input class="btn btn-default" type="button" data-role="getVerify"
+                           style="width: 20%;margin-left: 20px;height: 35px" value="点击获取验证码">
+
+                    <div style="text-align: left">
+                        <input type="text" class="form-control pull-left" placeholder="验证码" name="reg_verify"
+                               style="width: 20%;height: 35px;margin-top: 20px">
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="am-modal-footer am-g">
+                <button class=" am-u-sm-6" type="button" id="cancel"
+                        style="background-color: #F8F8F8;padding: 12px;border: 0px;color: #000">
+                    <span>取消</span></button>
+                <button class="am-u-sm-6" type="button" id="conf_verify"
+                        style="background-color: #32b1f1;padding: 12px;border: 0px;color: #FFFFFF">
+                    <span>确认</span></button>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<script>
+    $(function () {
+        $("[data-role='getVerify']").click(function () {
+            var account = $('[name="{$type}"]').val();
+            var type = $(this).parents('.tab-pane').find('[name="reg_type"]').val();
+
+            $.post("{:U('Mob/verify/sendVerify')}", {
+                account: account,
+                type: type,
+                action: 'member'
+            }, function (res) {
+                if (res.status) {
+
+                    toast.success(res.info);
+                }
+                else {
+                    toast.error(res.info);
+                }
+            })
+        })
+
+
+        $('#reg_nav li a').click(function () {
+            $('.tab-pane').find('input').attr('disabled', true);
+            $('.tab-pane').eq($("#reg_nav li a").index(this)).find('input').attr('disabled', false);
+        })
+        $("[type='submit']").click(function () {
+            $(this).parents('form').submit();
+        })
+
+        $('[href="#{$type}_reg"]').click()
+
+
+    })
+
+    $('#cancel').click(function () {
+        $('.mfp-close').click();
+    });
+    $('#conf_verify').click(function () {
+        var data = $("#forward").serialize();
+        var url = $("#forward").attr('data-url');
+        $.post(url, data, function (msg) {
+            if (msg.status == 1) {
+                $('.mfp-close').click();
+                toast.success(msg.info);
+            } else {
+                toast.error(msg.info);
+            }
+        }, 'json');
+    })
+</script>
+
+

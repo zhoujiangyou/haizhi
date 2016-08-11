@@ -1,0 +1,111 @@
+<extend name="Public/base"/>
+<block name="style">
+    <link href="__CSS__/expert.css" rel="stylesheet" type="text/css"/>
+</block>
+<block name="body">
+    <!-- 标题栏 -->
+    <div class="main-title">
+        <h2>{:L('_UEXPERT_LIST_')}</h2>
+    </div>
+    <div class="clearfix">
+        <div class="col-xs-10">
+            <button class="btn btn-info ajax-post" url="{:U('admin/expert/audit')}"
+                    target-form="ids">{:L('_EXPERT_AUDIT_')}
+            </button>
+            <button class="btn btn-danger ajax-post" url="{:U('admin/expert/delete')}"
+                    target-form="ids">{:L('_EXPERT_DELETE_')}
+            </button>
+        </div>
+
+        <!-- 高级搜索 -->
+        <div class="search-form  col-xs-2 text-right">
+            <div class="input-group">
+                <input type="text" name="name" class="search-input form-control" value="{:I('name')}"
+                       placeholder="{:L('_EXPERTNAME_OR_EXPERTID_')}">
+                <span class="input-group-btn"><a class="btn btn-default" href="javascript:;" id="search" url="{:U('index')}"><i class="icon-search"></i></a></span>
+            </div>
+        </div>
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table with-padding">
+        <table class="table table-bordered table-striped  table-hover">
+            <thead>
+            <tr>
+                <th class="row-selected"><input class="check-all" type="checkbox"/></th>
+                <th class="">{:L('_EXPERT_ID_')}</th>
+                <th class="">{:L('_EXPERT_NAME_')}</th>
+                <th class="">{:L('_EXPERT_CATEGORY_')}</th>
+                <th class="">{:L('_EXPERT_STATUS_')}</th>
+                <th class="">{:L('_EXPERT_OPERATE_')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="_list">
+                <volist name="_list" id="vo">
+                    <tr>
+                        <td><input class="ids" type="checkbox" name="ids[]" value="{$vo.id}"/></td>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.e_name}</td>
+                        <td>{$vo.e_category}</td>
+                        <td>{$vo.status_text}</td>
+                        <td class="expert_operate">
+                            <a  class="btn btn-primary checkd-detail" >查看详细信息</a>
+                            <a  class="btn btn-primary" href="{:U('/Admin/expert/experience',array('id'=>$vo['id']))}" >工作经验</a>
+                            <a  class="btn btn-primary" href="{:U('/Admin/expert/education',array('id'=>$vo['id']))}" >教育学历</a>
+                        </td>
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="9" class="text-center">{:L('_EXPERT_DATA_EMPTY_')}</td>
+            </notempty>
+            </tbody>
+        </table>
+    </div>
+    <div class="with-padding">
+        {$_page}
+    </div>
+
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+        (function () {
+            //搜索功能
+            $("#search").click(function () {
+                var url = $(this).attr('url');
+                var query = $('.search-form').find('input').serialize();
+                query = query.replace(/(&|^)(\w*?\d*?\-*?_*?)*?=?((?=&)|(?=$))/g, '');
+                query = query.replace(/^&/g, '');
+                if (url.indexOf('?') > 0) {
+                    url += '&' + query;
+                } else {
+                    url += '?' + query;
+                }
+                window.location.href = url;
+            });
+            //回车搜索
+            $(".search-input").keyup(function (e) {
+                if (e.keyCode === 13) {
+                    $("#search").click();
+                    return false;
+                }
+            });
+
+                $('.checkd-detail').modalTrigger({
+                    type:'ajax',
+                    remote:"{:U('admin/expert/detail',array('id'=>$vo['id']))}",
+                    size:"lg",
+                    position:'fit',
+                    showHeader:false,
+                    waittime:10,
+                    height:"auto"
+                });
+        })();
+
+    </script>
+    <style>
+        #triggerModal{
+            margin-left: 28%;
+        }
+    </style>
+</block>

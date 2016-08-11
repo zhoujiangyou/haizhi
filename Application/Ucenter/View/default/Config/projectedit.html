@@ -1,0 +1,1884 @@
+<extend name="Config/base" />
+<block name="style">
+    <link href="__ZUI__/lib/datetimepicker/datetimepicker.css" rel="stylesheet" type="text/css">
+    <link href="__ZUI__/lib/chosen/chosen.css" rel="stylesheet" type="text/css">
+</block>
+<block name="body">
+    <div class="usercenter-content-td">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="nav nav-secondary">
+                        <li class="{$tab==1?'active':''}">
+                            <a href="#base" data-toggle="tab">基本资料</a>
+                        </li>
+                        <eq name="isedit" value="1">
+                            <li class="{$tab==6?'active':''}">
+                                <a href="#company_addition" data-toggle="tab">额外信息</a>
+                            </li>
+                            <li class="{$tab==5?'active':''} hide">
+                                <a href="#company_code" data-toggle="tab">公司证件</a>
+                            </li>
+                            <li class="{$tab==3?'active':''}">
+                                <a href="#coreteamer" data-toggle="tab">核心成员</a>
+                            </li>
+                            <li class="{$tab==2?'active':''}">
+                                <a href="#event" data-toggle="tab">大事记</a>
+                            </li>
+                            <li class="{$tab==4?'active':''}">
+                                <a href="#news" data-toggle="tab">新闻报道</a>
+                            </li>
+                            <li class="{$tab==7?'active':''}">
+                                <a href="#growdata" data-toggle="tab">成长数据</a>
+                            </li>
+                            <li class="{$tab==8?'active':''}">
+                                <a href="#producttest" data-toggle="tab">产品测试</a>
+                            </li>
+                            <li class="{$tab==9?'active':''} hide">
+                                <a href="#teacher" data-toggle="tab">导师</a>
+                            </li>
+                        </eq>
+                    </ul>
+                </div>
+            </div>
+            <div class="row tab-content">
+                <div class="tab-pane {$tab==1?'active':''}" id="base">
+                    <eq name="isedit" value="0">
+                        <div class=" col-xs-12 padding-top-5">
+                            <div class="alert alert-primary with-icon">
+                                <i class="icon-info-sign"></i>
+                                <div class="content">请先填写项目基本信息，保存后补充额外信息。</div>
+                            </div>
+                        </div>
+                    </eq>
+                    <div class="padding-20">
+                        <div class="col-xs-12">
+                            <form id="project-publish" class="form-horizontal center_info" method="post">
+                                <input type="hidden" name="id" id="id" value="{$model.project_id}" />
+                                <div class="form-group">
+                                    <label for="Pro_description" class="col-xs-2 control-label">产品介绍</label>
+                                    <div class="col-xs-10">
+                                        <textarea style="height: 100px;" type="text" class="form-control" id="Pro_description" name="proinstruction" placeholder="请输入产品介绍（最多300字）" maxlength="300">{$model.proinstruction}</textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">产品图片</label>
+                                    <div class="col-xs-10">
+                                        <div class="controls">
+                                            <input type="file" id="upload_cover_img_1" class="">
+                                            <div class="upload-img-box-cover_1 border" style="width: 250px">
+                                                <if condition="$isedit eq 1">
+                                                    <if condition="$model.pro_imgs neq ''">
+                                                        <div class="upload-pre-item"><img src="{$model.pro_imgs}" style="padding:0;border:0;max-height:100%;"/><div class="removeImg">删除</div></div>
+                                                    <!-- <img src="{$model.pro_imgs}"> -->
+                                                    <else/>
+                                                        <div style="font-size:3em;color: #CCCCCC;text-align: center">
+                                                            暂无图片
+                                                        </div>
+                                                    </if>
+                                                <else/>
+                                                    <div style="font-size:3em;color: #CCCCCC;text-align: center">
+                                                        暂无图片
+                                                    </div>
+                                                </if>
+                                            </div>
+                                            <input type="hidden" name="pro_imgs" id="cover_img_1" value="{$model.pro_imgs_code}" />
+                                        </div>
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 像素在700x350px以上的2:1的图片，产品图片。支持JPG、GIF、PNG格式，文件不大于5MB
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Pro_video_url" class="col-xs-2 control-label">产品视频</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" class="form-control" id="Pro_video_url" name="pro_video_url" value="{$model.video_url}" placeholder="请填写视频链接">
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 如果有产品视频，请填写您产品视频链接。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-xs-2 control-label">{:L('_PROJECT_NAME_')}</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" class="form-control" id="name" name="name" value="{$model.project_name}" placeholder="{:L('_PROJECT_NAME_')}">
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 填写您的项目名称，名称不宜过长。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-xs-2 control-label">一句话介绍</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" class="form-control" id="shortdesc" name="shortdesc" value="{$model.short_desc}" placeholder="用一句话让投资人看懂你的项目" maxlength="25">
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 填写您的一句话介绍,最多25字。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-xs-2 control-label">项目所在地</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" class="form-control" id="country" name="country" value="{$model.country}" placeholder="请填写项目所在地" maxlength="25">
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 填写您的项目所在地。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name" class="col-xs-2 control-label">项目类型</label>
+                                    <div class="col-xs-10">
+                                        <select class="form-control" id="project_type" name="category">
+                                            <option value="">--请选择--</option>
+                                            <volist name="project_type" id="item">
+                                                <if condition="$item.id eq $model['category']">
+                                                    <option selected="selected" value="{$item.id}">
+                                                        {$item.category_name}
+                                                    </option>
+                                                    <else/>
+                                                    <option value="{$item.id}">{$item.category_name}</option>
+                                                </if>
+                                            </volist>
+                                        </select>
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 选择您的项目类型。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="stage" class="col-xs-2 control-label">所属阶段</label>
+                                    <div class="col-xs-10">
+                                        <select class="form-control" id="stage" name="stage">
+                                            <option value="">--请选择所属阶段--</option>
+                                            <option value="概念阶段">概念阶段</option>
+                                            <option value="研发阶段">研发阶段</option>
+                                            <option value="正式发布">正式发布</option>
+                                            <option value="已有用户">已有用户</option>
+                                            <option value="已有收入">已有收入</option>
+                                        </select>
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 您项目所处的阶段，比如开发阶段，已上线，或者已盈利等。
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="" class="col-xs-2 control-label">您需要的资源</label>
+                                    <div class="col-xs-10">
+                                        <div class="resource-info">
+                                            <select class="form-control" style="width:300px;display:inline-block" name="need_resource1" id="need_resource1" data_name="{$model.need_res.yi.need_resource1}">
+                                                <option value="">--请选择--</option>
+                                                <option value="资金">资金</option>
+                                                <option value="科技成果">科技成果</option>
+                                                <option value="孵化器">孵化器</option>
+                                                <option value="政策">政策</option>
+                                                <option value="市场资源">市场资源</option>
+                                                <option value="其他">其他</option>
+                                            </select>
+                                            <input class="form-control " type="text" style="display:inline-block" placeholder="请不超过20个字进行描述" name="need_resource1_desc" id="need_resource1_desc" value="{$model.need_res.yi.need_resource1_desc}" maxlength="20" />
+                                        </div>
+                                        <div class="resource-info">
+                                            <select class="form-control" style="width:300px;display:inline-block" name="need_resource2" id="need_resource2" data_name="{$model.need_res.yi.need_resource2}">
+                                                <option value="">--请选择--</option>
+                                                <option value="资金">资金</option>
+                                                <option value="科技成果">科技成果</option>
+                                                <option value="孵化器">孵化器</option>
+                                                <option value="政策">政策</option>
+                                                <option value="市场资源">市场资源</option>
+                                                <option value="其他">其他</option>
+                                            </select>
+                                            <input class="form-control " type="text" style="display:inline-block" placeholder="请不超过20个字进行描述" name="need_resource2_desc" id="need_resource2_desc" value="{$model.need_res.er.need_resource2_desc}" maxlength="20"/>
+                                        </div>
+                                        <div class="resource-info">
+                                            <select class="form-control" style="width:300px;display:inline-block" name="need_resource3" id="need_resource3" data_name="{$model.need_res.yi.need_resource3}">
+                                                <option value="">--请选择--</option>
+                                                <option value="资金">资金</option>
+                                                <option value="科技成果">科技成果</option>
+                                                <option value="孵化器">孵化器</option>
+                                                <option value="政策">政策</option>
+                                                <option value="市场资源">市场资源</option>
+                                                <option value="其他">其他</option>
+                                            </select>
+                                            <input class="form-control " type="text" style="display:inline-block" placeholder="请不超过20个字进行描述" name="need_resource3_desc" id="need_resource3_desc" value="{$model.need_res.san.need_resource3_desc}" maxlength="20"/>
+                                        </div>
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 勾选您需要的资源。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">{:L('_PROJECT_LOGO_')}</label>
+                                    <div class="col-xs-10">
+                                        <div class="controls">
+                                            <input type="file" id="upload_picture_cover">
+                                            <div class="upload-img-box-logo border" style="width: 100px">
+                                                <if condition="$isedit eq 1">
+                                                    <if condition="$model.logo_path neq ''">
+                                                        <div class="upload-pre-item"><img src="{$model.logo_path}" style="padding:0;border:0;max-height:100%;"/><div class="removeImg">删除</div></div>
+                                                    <!-- <img src="{$model.logo_path}"> -->
+                                                    <else/>
+                                                        <div style="font-size:1em;color: #CCCCCC;text-align: center">
+                                                            暂无图片
+                                                        </div>
+                                                    </if>
+                                                <else/>
+                                                    <div style="font-size:1em;color: #CCCCCC;text-align: center">
+                                                        暂无图片
+                                                    </div>
+                                                </if>
+                                            </div>
+                                            <input type="hidden" name="pro_logo" id="pro_logo" value="{$model.pro_logo}" />
+                                        </div>
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 像素在512x512px以上的正方形标志。支持JPG、GIF、PNG格式，文件不大于5MB
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">项目封面图</label>
+                                    <div class="col-xs-10">
+                                        <div class="controls">
+                                            <input type="file" id="upload_cover_img" class="">
+                                            <div class="upload-img-box-cover border" style="width: 250px">
+                                                <if condition="$isedit eq 1">
+                                                    <if condition="$model.cover_path neq ''">
+                                                        <div class="upload-pre-item"><img src="{$model.cover_path}" style="padding:0;border:0;max-height:100%;"/><div class="removeImg">删除</div></div>
+                                                    <!-- <img src="{$model.cover_path}"> -->
+                                                    <else/>
+                                                        <div style="font-size:3em;color: #CCCCCC;text-align: center">
+                                                            暂无图片
+                                                        </div>
+                                                    </if>
+                                                <else/>
+                                                    <div style="font-size:3em;color: #CCCCCC;text-align: center">
+                                                        暂无图片
+                                                    </div>
+                                                </if>
+                                            </div>
+                                            <input type="hidden" name="cover_img" id="cover_img" value="{$model.cover_img}" />
+                                        </div>
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 像素在700x350px以上的2:1的图片，用于展示在列表页面。支持JPG、GIF、PNG格式，文件不大于5MB
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="project_description" class="col-xs-2 control-label">项目介绍</label>
+                                    <div class="col-xs-10">
+                                        <textarea style="height: 100px;" type="text" class="form-control" id="project_description" name="description" placeholder="请简单介绍项目概况，让投资人快速了解你要解决什么痛点，用什么手段解决这些痛点。">{$model.description}</textarea maxlength="300">
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 提示：在关键词前后加上#，可突出显示该关键词。
+                                            <br>最多可输入300字
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="highlights" class="col-xs-2 control-label">团队亮点</label>
+                                    <div class="col-xs-10">
+                                        <textarea style="height: 100px;" type="text" class="form-control" id="highlights" name="team_desc" placeholder="介绍团队最突出的亮点">{$model.team_desc}</textarea maxlength="300">
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 最多可输入300字
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="team_size" class="col-xs-2 control-label">团队规模</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" class="form-control" id="team_size" name="team_size" value="{$model.team_size}" placeholder="请填写数字" style="display: inline-block;">
+                                        <span style="margin-left:10px;">人</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="video_url" class="col-xs-2 control-label">团队视频</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" class="form-control" id="video_url" name="video_url" value="{$model.video_url}" placeholder="团队视频">
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 如果有视频介绍，请填写您项目的团队视频。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">团队图片</label>
+                                    <div class="col-xs-10">
+                                        <div class="controls">
+                                            <input type="file" id="upload_cover_img_2" class="">
+                                            <div class="upload-img-box-cover_2 border" style="width: 250px">
+                                                <if condition="$isedit eq 1">
+                                                    <if condition="$model.team_imgs neq ''">
+                                                        <div class="upload-pre-item"><img src="{$model.team_imgs}" style="padding:0;border:0;max-height:100%;"/><div class="removeImg">删除</div></div>
+                                                    <!-- <img src="{$model.team_imgs}"> -->
+                                                    <else/>
+                                                        <div style="font-size:3em;color: #CCCCCC;text-align: center">
+                                                            暂无图片
+                                                        </div>
+                                                    </if>
+                                                <else/>
+                                                    <div style="font-size:3em;color: #CCCCCC;text-align: center">
+                                                        暂无图片
+                                                    </div>
+                                                </if>
+                                            </div>
+                                            <input type="hidden" name="team_imgs" id="cover_img_2" value="{$model.team_imgs_code}" />
+                                        </div>
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 像素在700x350px以上的2:1的图片，用于展示在列表页面。支持JPG、GIF、PNG格式，文件不大于5MB
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label"></label>
+                                    <div class="col-xs-10">
+                                        <button class="btn btn-info ajax-post" href="{:U('publishBaseInfo')}" target-form="project-publish">保存
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <eq name="isedit" value="1">
+                    <!--额外信息-->
+                    <div class="tab-pane {$tab==6?'active':''}" id="company_addition">
+                        <div class="padding-20">
+                            <div class="col-xs-12">
+                                <form id="project-addition-publish" class="form-horizontal center_info ajax-form">
+                                    <div class="form-group">
+                                        <label for="" class="col-xs-2 control-label move-10">市场调研</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <span for="" class="col-xs-2 control-label">用户规模</span>
+                                        <div class="col-xs-10">
+                                            <input class="form-control" type="text" style="display:inline-block" placeholder="请输入数值" name="yonghuguimo" value="{$model.market_research.yonghuguimo}"/>
+                                            <select class="form-control" style="width:300px;display:inline-block" name="yonghuguimodanwei" id="yonghuguimodanwei">
+                                                <option value="万">万</option>
+                                                <option value="十万">十万</option>
+                                                <option value="百万">百万</option>
+                                                <option value="千万">千万</option>
+                                                <option value="亿">亿</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span for="" class="col-xs-2 control-label">市场规模</span>
+                                        <div class="col-xs-10">
+                                            <input class="form-control " type="text" style="display:inline-block" placeholder="请输入数值" name="shichangguimo"  value="{$model.market_research.shichangguimo}"/>
+                                            <select class="form-control" style="width:300px;display:inline-block" name="shichangguimodanwei" id="shichangguimodanwei">
+                                                <option value="百万人民币">百万人民币</option>
+                                                <option value="千万人民币">千万人民币</option>
+                                                <option value="亿人民币">亿人民币</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span for="" class="col-xs-2 control-label">市场类型</span>
+                                        <div class="col-xs-10">
+                                            <select class="form-control" style="width:300px;" name="shichangleibie" id="shichangleibie">
+                                                <option value="">--请选择市场类型--</option>
+                                                <option value="行业细分">行业细分</option>
+                                                <option value="用户细分">用户细分</option>
+                                                <option value="大众市场">大众市场</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-xs-2 control-label move-10">对标公司</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <span for="" class="col-xs-2 control-label">对标公司</span>
+                                        <div class="col-xs-10">
+                                            <input style="max-width:400px;" class="form-control" type="text" placeholder="和您项目做类似业务且取得成功的公司，最多30字" maxlength="30" name="duibiaocomp" value="{$model.duibiao_comp.duibiaocomp}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span for="" class="col-xs-2 control-label">官方网站</span>
+                                        <div class="col-xs-10">
+                                            <input style="max-width:400px;" class="form-control" type="text" placeholder="官网链接，最多30字" maxlength="" name="website" value="{$model.duibiao_comp.website}"  />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span for="" class="col-xs-2 control-label">近期估值</span>
+                                        <div class="col-xs-10">
+                                            <input style="max-width:400px;display: inline-block;" class="form-control" type="text" placeholder="请输入数字，最多30字" maxlength="30" name="jinqiguzhi" value="{$model.duibiao_comp.jinqiguzhi}"  />
+                                            <span style="margin-left:10px;">万</span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span for="event_create_time-2" class="col-xs-2 control-label">估值时间</span>
+                                        <div class="col-xs-10">
+                                            <input type="text" class="form-control time" id="event_create_time-2" name="guzhishijian" value="{$model.duibiao_comp.guzhishijian}"  placeholder="时间" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="" class="col-xs-2 control-label move-10">竞争优势</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <span class="col-xs-2 control-label">优势</span>
+                                        <input type="hidden" name="advantageCount" id="advantageCount" value="{$model.edge}" />
+                                        <div class="col-xs-10">
+                                            <div class="compete-info">
+                                                <select class="form-control" style="width:300px;display:inline-block" name="advantage0" id="advantage0" data-name="{$model.competitive_edge.num0.advantage0}">
+                                                    <option value="">请选择类型</option>
+                                                    <option value="人才">人才</option>
+                                                    <option value="团队">团队</option>
+                                                    <option value="市场">市场</option>
+                                                    <option value="渠道">渠道</option>
+                                                    <option value="技术">技术</option>
+                                                    <option value="政府">政府</option>
+                                                </select>
+                                                <input class="form-control " type="text" style="display:inline-block" placeholder="请详细描述优势，最多20字" name="describe0" id="describe0" value="{$model.competitive_edge.num0.describe0}" />
+                                            </div>
+
+                                            <div class="compete-info" style="margin-top:15px;">
+                                                <select class="form-control" style="width:300px;display:inline-block" name="advantage1" id="advantage1" data-name="{$model.competitive_edge.num1.advantage1}">
+                                                    <option value="">请选择类型</option>
+                                                    <option value="人才">人才</option>
+                                                    <option value="团队">团队</option>
+                                                    <option value="市场">市场</option>
+                                                    <option value="渠道">渠道</option>
+                                                    <option value="技术">技术</option>
+                                                    <option value="政府">政府</option>
+                                                </select>
+                                                <input class="form-control " type="text" style="display:inline-block" placeholder="请详细描述优势，最多20字" name="describe1" id="describe1" value="{$model.competitive_edge.num1.describe1}" />
+                                            </div>
+
+                                            <div class="compete-info" style="margin-top:15px;">
+                                                <select class="form-control" style="width:300px;display:inline-block" name="advantage2" id="advantage2" data-name="{$model.competitive_edge.num2.advantage2}">
+                                                    <option value="">请选择类型</option>
+                                                    <option value="人才">人才</option>
+                                                    <option value="团队">团队</option>
+                                                    <option value="市场">市场</option>
+                                                    <option value="渠道">渠道</option>
+                                                    <option value="技术">技术</option>
+                                                    <option value="政府">政府</option>
+                                                </select>
+                                                <input class="form-control " type="text" style="display:inline-block" placeholder="请详细描述优势，最多20字" name="describe2" id="describe2" value="{$model.competitive_edge.num2.describe2}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <span for="project_competitive_edge" class="col-xs-2 control-label">其他优势</span>
+                                        <div class="col-xs-10">
+                                            <textarea style="height:100px;" type="text" class="form-control" id="project_competitive_edge" name="other_edge" placeholder="除上述最主要优势外，您还有那些其他优势？最多300字">{$model.other_edge}</textarea>
+                                            <div class="tip-in-form">
+                                                <i class="icon icon-info-sign"></i> 填写其他优势。
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="project_business_model" class="col-xs-2 control-label move-10">商业模式</label>
+                                        <div class="col-xs-10">
+                                            <textarea style="height:100px;" type="text" class="form-control" id="project_business_model" name="business_model" placeholder="如何获取用户，如何盈利？最多500字">{$model.business_model}</textarea>
+                                            <div class="tip-in-form">
+                                                <i class="icon icon-info-sign"></i> 填写您的商业模式。
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-xs-2 control-label"></label>
+                                        <div class="col-xs-10">
+                                            <button class="btn btn-info ajax-post" href="{:U('publishAdditionInfo',array('id'=>$model['project_id']))}" target-form="project-addition-publish">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--公司证件-->
+                    <div class="tab-pane {$tab==5?'active':''} hide" id="company_code">
+                        <div class="padding-20">
+                            <form id="project-company-publish" class="form-horizontal center_info ajax-form">
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">公司营业执照</label>
+                                    <div class="col-xs-10">
+                                        <div class="controls">
+                                            <input type="file" id="upload_business_img" class="">
+                                            <div class="upload-img-box-business border" style="width: 250px">
+                                                <if condition="$model.business_image eq null">
+                                                    <div style="font-size:3em;color: #CCCCCC;text-align: center">
+                                                        暂无图片
+                                                    </div>
+                                                    <else/>
+                                                    <img src="{$model.business_path}" />
+                                                </if>
+                                            </div>
+                                            <input type="hidden" name="business_image" id="business_image" value="{$model.business_image}" />
+                                        </div>
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 公司营业执照。支持JPG、GIF、PNG格式，文件不大于5MB
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="organizationcode" class="col-xs-2 control-label">机构组织代码</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" class="form-control" id="organizationcode" name="organizationcode" value="{$model.organizationcode}" placeholder="机构组织代码">
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 机构组织代码。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="yingyecode" class="col-xs-2 control-label">营业执照代码</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" class="form-control" id="yingyecode" name="yingyecode" value="{$model.yingyecode}" placeholder="营业执照代码">
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 营业执照代码。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="taxcode" class="col-xs-2 control-label">税务登记号</label>
+                                    <div class="col-xs-10">
+                                        <input type="text" class="form-control" id="taxcode" name="taxcode" value="{$model.taxcode}" placeholder="机构组织代码">
+                                        <div class="tip-in-form">
+                                            <i class="icon icon-info-sign"></i> 税务登记号。
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label"></label>
+                                    <div class="col-xs-10">
+                                        <button class="btn btn-info ajax-post" href="{:U('publishCompanyInfo',array('id'=>$model['project_id']))}" target-form="project-company-publish">保存
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <!--核心成员-->
+                    <div class="tab-pane {$tab==3?'active':''}" id="coreteamer">
+                        <div class="padding-20">
+                            <button type="button" class="btn new-coreteamer" data-toggle="modal" data-target="#edit_coreteamer">
+                                <i class="icon icon-plus"></i>添加核心成员
+                            </button>
+                            <ul class="data-list border-top margin-top-10">
+                                <li class="row fix-row-padding border-bottom">
+                                    <div class="col-xs-2"> 头像 </div>
+                                    <span class="col-xs-2">成员名称</span>
+                                    <span class="col-xs-2">职位</span>
+                                    <span class="col-xs-2">邮件</span>
+                                    <span class="col-xs-2">电话</span>
+                                    <div class="col-xs-2"> 操作 </div>
+                                </li>
+                                <volist name="corePerson" id="item">
+                                    <li class="row fix-row-padding border-bottom">
+                                        <div class="col-xs-2">
+                                            <div id="coreteamer_avatar_{$item.coreteamer_id}" class="avatar-in-edit-project" data-id="{$item.avatar}" data-url="{$item.path}" style="background-image: url({$item.path})"></div>
+                                        </div>
+                                        <span class="col-xs-2 padding-top-15" id="coreteamer_name_{$item.coreteamer_id}">{$item.name}</span>
+                                        <span class="col-xs-2 padding-top-15" id="coreteamer_position_{$item.coreteamer_id}">{$item.position|default="--"}</span>
+                                        <span class="col-xs-2 padding-top-15" id="coreteamer_email_{$item.coreteamer_id}">{$item.email|default="--"}</span>
+                                        <span class="col-xs-2 padding-top-15" id="coreteamer_address_{$item.coreteamer_id}">{$item.address|default="--"}</span>
+                                        <span class="hidden" id="coreteamer_self_instruction_{$item.coreteamer_id}">{$item.self_instruction|default="--"}</span>
+                                        <volist name="item.education" id="data" >
+                                            <span class="hidden edit_edu_item_{$item.coreteamer_id}">{$data.school}-{$data.degree}</span>
+                                        </volist>
+                                        <volist name="item.experience" id="data" >
+                                            <span class="hidden edit_exper_item_{$item.coreteamer_id}">{$data.company}-{$data.e_position}</span>
+                                        </volist>
+                                        <div class="col-xs-2 padding-top-15">
+                                            <button class="btn btn-info btn-mini edit-coreteamer" data-id="{$item.coreteamer_id}" data-toggle="modal" data-target="#edit_coreteamer" style="padding:0 4px;border-radius:2px;"> <i class="icon icon-edit"></i>编辑
+                                            </button>
+                                            <button class="btn btn-mini btn-danger ajax-post" href="{:U('deleteCoreteamer',array('coreteamerid'=>$item['coreteamer_id']))}" style="padding:0 4px;border-radius:2px;"> <i class="icon icon-times"></i> 删除 </button>
+                                            <button class="btn btn-mini btn-white add_education_add" data-id="{$item.coreteamer_id}" data-toggle="modal" data-target="#add_education" style="padding:0 4px;border-radius:2px;"> &nbsp;&nbsp;添加教育经历&nbsp;&nbsp;
+                                            <button class="btn btn-mini btn-white add_education_job" data-id="{$item.coreteamer_id}" data-toggle="modal" data-target="#add_job" style="padding:0 4px;border-radius:2px;"> &nbsp;&nbsp;添加工作经历&nbsp;&nbsp;
+                                            </button>
+                                        </div>
+                                    </li>
+                                </volist>
+                            </ul>
+                            <!-- 对话框部分-->
+                            <div class="modal fade" id="add_education">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span>
+                                            </button>
+                                            <h4 class="modal-title">添加教育经历</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="project-education" class="form-horizontal center_info ajax-form">
+                                                <input type="hidden" name="id" value="{$model.project_id}"/>
+                                                <input type="hidden" name="proid" value=""  class="add_education_add_id"/>
+                                                <div class="form-group">
+                                                    <label class="col-xs-2 control-label">教育经历:</label>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请输入学校" name="edu0"  value=""/>
+                                                    </div>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请输入学位" name="degree0"  value=""/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-xs-2 control-label">教育经历:</label>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请输入学校" name="edu1"  value=""/>
+                                                    </div>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请输入学位" name="degree1"  value=""/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-xs-2 control-label">教育经历:</label>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请输入学校" name="edu2"  value=""/>
+                                                    </div>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请输入学位" name="degree2"  value=""/>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                            </button>
+                                            <button type="button" class="btn btn-primary ajax-post" target-form="project-education" href="{:U('addEducation')}">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="add_job">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span>
+                                            </button>
+                                            <h4 class="modal-title">添加工作经历</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="project-job" class="form-horizontal center_info ajax-form">
+                                                <input type="hidden" name="id" value="{$model.project_id}"/>
+                                                <input type="hidden" name="proid" value="" class="add_education_job_id"/>
+                                                <div class="form-group">
+                                                    <label class="col-xs-2 control-label">工作经历:</label>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请填写公司" name="company0"  value=""/>
+                                                    </div>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请填写职位" name="position0"  value=""/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-xs-2 control-label">工作经历:</label>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请填写公司" name="company1"  value=""/>
+                                                    </div>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请填写职位" name="position1"  value=""/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-xs-2 control-label">工作经历:</label>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请填写公司" name="company2"  value=""/>
+                                                    </div>
+                                                    <div class="col-xs-5">
+                                                        <input class="form-control " type="text" style="display:inline-block" placeholder="请填写职位" name="position2"  value=""/>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                            </button>
+                                            <button type="button" class="btn btn-primary ajax-post" target-form="project-job" href="{:U('addExperience')}">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="edit_coreteamer">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span>
+                                            </button>
+                                            <h4 class="modal-title">核心成员</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="project-coreteamer" class="form-horizontal center_info ajax-form">
+                                                <input type="hidden" name="id" value="" />
+                                                <input type="hidden" name="proid" value="{$model.project_id}" />
+                                                <div class="form-group">
+                                                    <label class="col-xs-3 control-label">真实姓名</label>
+                                                    <div class="col-xs-9">
+                                                        <input type="text" class="form-control" name="name" value="" placeholder="真实姓名">
+                                                        <div class="tip-in-form">
+                                                            <i class="icon icon-info-sign"></i> 填写您的身份证上的姓名
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-xs-3 control-label">真实头像</label>
+                                                    <div class="col-xs-9">
+                                                        <input type="file" id="upload_coreteamer_img" class="">
+                                                        <div class="upload-img-box-coreteamer border" style="width: 250px">
+                                                            <div class="hidden no-image" style="font-size:3em;color: #CCCCCC;text-align: center">
+                                                                暂无图片
+                                                            </div>
+
+                                                            <div class="upload-pre-item"><img class="hidden has-image" src="{$model.pro_imgs}" style="padding:0;border:0;max-height:100%;"/><div class="removeImg">删除</div></div>
+                                                            <!-- <img class="hidden has-image" src="" /> -->
+                                                        </div>
+                                                        <input type="hidden" id="avatar_image" name="avatar" value="" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-xs-3 control-label">个人介绍</label>
+                                                    <div class="col-xs-9">
+                                                        <textarea class="form-control" name="self_instruction" value="" placeholder="个人介绍"></textarea>
+                                                        <div class="tip-in-form">
+                                                            <i class="icon icon-info-sign"></i> 简单填写您的个人介绍，30字以上，300字以内为佳
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-xs-3 control-label">项目中的职位</label>
+                                                    <div class="col-xs-9">
+                                                        <input type="text" class="form-control" name="position" value="" placeholder="项目中的职位">
+                                                        <div class="tip-in-form">
+                                                            <i class="icon icon-info-sign"></i> 您在此项目中担任的角色
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-xs-3 control-label">常用邮箱</label>
+                                                    <div class="col-xs-9">
+                                                        <input type="text" class="form-control" name="email" value="" placeholder="电子信箱">
+                                                        <div class="tip-in-form">
+                                                            <i class="icon icon-info-sign"></i> 填写您的电子信箱，我们之后的相关文档会发送到此邮箱
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-xs-3 control-label">常用手机</label>
+                                                    <div class="col-xs-9">
+                                                        <input type="text" class="form-control" name="telephone" value="" placeholder="手机号码">
+                                                        <div class="tip-in-form">
+                                                            <i class="icon icon-info-sign"></i> 填写您的手机号码
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                            </button>
+                                            <button type="button" class="btn btn-primary ajax-post" target-form="project-coreteamer" href="{:U('coreteamerPublish')}">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--大事记-->
+                    <div class="tab-pane {$tab==2?'active':''}" id="event">
+                        <div class="padding-20">
+                            <div class=" control-label">媒体报道能增加事件的可信度，我们不建议您填写项目官网进行的报道</div>
+                            <button type="button" class="btn new-event" data-toggle="modal" data-target="#edit_event">
+                                <i class="icon icon-plus" style="position: relative; top:1px;"></i>添加大事记
+                            </button>
+                            <ul class="data-list border-top margin-top-10">
+                                <li class="row fix-row-padding border-bottom">
+                                    <span class="col-xs-1"> 编号 </span>
+                                    <span class="col-xs-2"> 类型 </span>
+                                    <span class="col-xs-2"> 日期 </span>
+                                    <span class="col-xs-4"> 内容 </span>
+                                    <span class="col-xs-3"> 操作 </span>
+                                </li>
+                                <volist name="events" id="item" empty="$empty">
+                                    <li class="row fix-row-padding border-bottom">
+                                        <span class="col-xs-1" id="event_id_{$item.id}">{$item.id}</span>
+                                        <span class="col-xs-2" id="event_id_{$item.type}">{$item.type}</span>
+                                        <span class="col-xs-2" id="event_create_time_{$item.id}">{$item.create_time}</span>
+                                        <span class="col-xs-4" id="event_content_{$item.id}">{$item.content}</span>
+                                        <span class="col-xs-3">
+                                        <button type="button" data-id="{$item.id}"
+                                                class="btn btn-info btn-mini edit-event" data-toggle="modal"
+                                                data-target="#edit_event">
+                                            <i class="icon icon-edit"></i>编辑
+                                        </button>
+                                        <button class="btn btn-mini btn-danger ajax-post"
+                                                href="{:U('deleteEvent',array('eventid'=>$item['id']))}">
+                                            <i class="icon icon-times"></i>
+                                            删除
+                                        </button>
+                                        </span>
+                                    </li>
+                                </volist>
+                            </ul>
+                            <div class="opwapper margin-bottom-15">
+                                <!-- 对话框部分-->
+                                <div class="modal fade" id="edit_event">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span>
+                                                </button>
+                                                <h4 class="modal-title">大事记</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="project-event" class="form-horizontal center_info ajax-form project-event">
+                                                    <input type="hidden" name="id" value="" />
+                                                    <input type="hidden" name="proid" value="{$model.project_id}" />
+                                                    <div class="form-group">
+                                                        <label class="col-xs-2 control-label">类型</label>
+                                                        <div class="col-xs-10">
+                                                            <select class="form-control" style="width:300px;" name="type">
+                                                                <option value="">请选择类型</option>
+                                                                <option value="项目成立">项目成立</option>
+                                                                <option value="用户调研">用户调研</option>
+                                                                <option value="版本上线">版本上线</option>
+                                                                <option value="重大合作">重大合作</option>
+                                                                <option value="数据里程碑">数据里程碑</option>
+                                                                <option value="重要成员变化">重要成员变化</option>
+                                                                <option value="媒体采访">媒体采访</option>
+                                                                <option value="战略调整">战略调整</option>
+                                                                <option value="企业并购">企业并购</option>
+                                                                <option value="关键合作伙伴">关键合作伙伴</option>
+                                                                <option value=其他 "">其他</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="event_create_time" class="col-xs-2 control-label">日期</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control time" id="event_create_time" name="create_time" value="" placeholder="日期">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="event_content" class="col-xs-2 control-label">内容</label>
+                                                        <div class="col-xs-10">
+                                                            <textarea type="text" class="form-control" id="event_content" name="content" placeholder="填写事件内容"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                                </button>
+                                                <button type="button" class="btn btn-primary ajax-post" target-form="project-event" href="{:U('eventPublish')}">保存
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--新闻报道-->
+                    <div class="tab-pane {$tab==4?'active':''}" id="news">
+                        <div class="padding-20">
+                            <button type="button" class="btn new-news" data-toggle="modal" data-target="#edit_news">
+                                <i class="icon icon-plus"></i>添加新闻报道
+                            </button>
+                            <ul class="data-list border-top margin-top-10">
+                                <li class="row fix-row-padding border-bottom">
+                                    <span class="col-xs-1">ID</span>
+                                    <span class="col-xs-2">创建时间</span>
+                                    <span class="col-xs-2">标题</span>
+                                    <span class="col-xs-3">站点</span>
+                                    <span class="col-xs-2">申请报道</span>
+                                    <span class="col-xs-2">操作</span>
+                                </li>
+                                <volist name="news" id="item" empty="$empty">
+                                    <li class="row fix-row-padding border-bottom">
+                                        <span class="col-xs-1" id="news_id_{$item.id}">{$item.id}</span>
+                                        <span class="col-xs-2" id="news_create_time_{$item.id}">{$item.create_time}</span>
+                                        <span class="col-xs-2" id="news_title_{$item.id}">{$item.new_title}</span>
+                                        <span class="col-xs-3" id="news_website_{$item.id}">{$item.new_website}</span>
+                                        <span class="col-xs-2" id="news_application_{$item.id}" data-type="{$item.application}">
+                                        <if condition="$item.application eq 1">是
+                                            <else/>
+                                            否
+                                        </if>
+                                        </span>
+                                        <span class="col-xs-2">
+                                        <button type="button" data-id="{$item.id}"
+                                                class="btn btn-info btn-mini edit-news" data-toggle="modal"
+                                                data-target="#edit_news">
+                                            <i class="icon icon-edit"></i>编辑
+                                        </button>
+                                        <button class="btn btn-mini btn-danger ajax-post"
+                                                href="{:U('deleteNews',array('newsid'=>$item['id']))}">
+                                            <i class="icon icon-times"></i>
+                                            删除
+                                        </button>
+                                        </span>
+                                    </li>
+                                </volist>
+                            </ul>
+                            <div class="opwapper margin-bottom-15">
+                                <!-- 对话框部分-->
+                                <div class="modal fade" id="edit_news">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span>
+                                                </button>
+                                                <h4 class="modal-title">新闻报道</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="project-news" class="form-horizontal center_info ajax-form project-event">
+                                                    <input type="hidden" name="id" value="" />
+                                                    <input type="hidden" name="proid" value="{$model.project_id}" />
+                                                    <div class="form-group">
+                                                        <label for="news_create_time" class="col-xs-2 control-label">时间</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control time" id="news_create_time" name="create_time" value="" placeholder="时间">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="news_title" class="col-xs-2 control-label">标题</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control" id="news_title" name="new_title" placeholder="填写标题" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="news_website" class="col-xs-2 control-label">网址</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control" id="news_website" name="new_website" placeholder="填写网站" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="" class="col-xs-2 control-label"></label>
+                                                        <div class="col-xs-10">
+                                                            申请合作媒体报道
+                                                            <input type="checkbox" name="application" />
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                                </button>
+                                                <button type="button" class="btn btn-primary ajax-post" target-form="project-news" href="{:U('newsPublish')}">保存
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--成长数据-->
+                    <div class="tab-pane {$tab==7?'active':''}" id="growdata">
+                        <div class="padding-20">
+                            <div class=" control-label hidden">同一类型数据填写三个以上，我们会在项目展示页自动帮您生成趋势图</div>
+                            <button type="button" class="btn new-growdata" data-toggle="modal" data-target="#edit_growdata">
+                                <i class="icon icon-plus" style="position: relative; top:1px;"></i>添加成长数据
+                            </button>
+                            <ul class="data-list border-top margin-top-10">
+                                <li class="row fix-row-padding border-bottom">
+                                    <span class="col-xs-3">时间</span>
+                                    <span class="col-xs-3">数据类型</span>
+                                    <span class="col-xs-4">数值</span>
+                                    <span class="col-xs-2">操作</span>
+                                </li>
+                                <volist name="growdata" id="item" empty="$empty">
+                                    <li class="row fix-row-padding border-bottom">
+                                        <span class="col-xs-3" id="growdata_time_{$item.id}">{$item.time}</span>
+                                        <span class="col-xs-3" id="growdata_category_{$item.id}">{$item.category}</span>
+                                        <span class="col-xs-4" id="growdata_data_{$item.id}">{$item.data}</span>
+                                        <span class="col-xs-2">
+                                        <button type="button" data-id="{$item.id}"
+                                                class="btn btn-info btn-mini edit-growdata" data-toggle="modal"
+                                                data-target="#edit_growdata">
+                                            <i class="icon icon-edit"></i>编辑
+                                        </button>
+                                        <button class="btn btn-mini btn-danger ajax-post"
+                                                href="{:U('deleteGrowdata',array('growdataid'=>$item['id']))}">
+                                            <i class="icon icon-times"></i>
+                                            删除
+                                        </button>
+                                        </span>
+                                    </li>
+                                </volist>
+                            </ul>
+                            <div class="opwapper margin-bottom-15">
+                                <!-- 对话框部分-->
+                                <div class="modal fade" id="edit_growdata">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span>
+                                                </button>
+                                                <h4 class="modal-title">成长数据</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="project-growdata" class="form-horizontal center_info ajax-form project-growdata">
+                                                    <input type="hidden" name="id" value="" />
+                                                    <input type="hidden" name="proid" value="{$model.project_id}" />
+                                                    <div class="form-group">
+                                                        <label class="col-xs-2 control-label">日期</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control time" name="time" value="" placeholder="时间">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-xs-2 control-label">类型</label>
+                                                        <div class="col-xs-10">
+                                                            <select class="form-control" style="width:300px;" name="category">
+                                                                <option>请选择类型</option>
+                                                                <option>月营业额（元）</option>
+                                                                <option>总下载量（次）</option>
+                                                                <option>注册用户总数（次）</option>
+                                                                <option>月活（人）</option>
+                                                                <option>付费用户总数（人）</option>
+                                                                <option>月PV（次）</option>
+                                                                <option>合作商家总数（个）</option>
+                                                                <option>月净利润（元）</option>
+                                                                <option>月UV（次）</option>
+                                                                <option>月订单数（个）</option>
+                                                                <option>平均停留时间（分）</option>
+                                                                <option>月独立IP（个）</option>
+                                                                <option>转化率（百分数）</option>
+                                                                <option>活跃用户总数（人）</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-xs-2 control-label">数值</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control" name="data" placeholder="请输入对应值" />
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                                </button>
+                                                <button type="button" class="btn btn-primary ajax-post" target-form="project-growdata" href="{:U('growdataPublish')}">保存
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--产品测试-->
+                    <div class="tab-pane {$tab==8?'active':''}" id="producttest">
+                        <div class="padding-20">
+                            <button type="button" class="btn new-producttest" data-toggle="modal" data-target="#edit_producttest">
+                                <i class="icon icon-plus"></i>添加产品测试
+                            </button>
+                            <ul class="data-list border-top margin-top-10">
+                                <li class="row fix-row-padding border-bottom">
+                                    <span class="col-xs-2">微博</span>
+                                    <span class="col-xs-2">微信</span>
+                                    <span class="col-xs-2">网站</span>
+                                    <span class="col-xs-2">apk</span>
+                                    <span class="col-xs-1">ios</span>
+                                    <span class="col-xs-1">账号</span>
+                                    <span class="col-xs-1">密码</span>
+                                    <span class="col-xs-1">操作</span>
+                                </li>
+                                <volist name="producttest" id="item" empty="$empty">
+                                    <li class="row fix-row-padding border-bottom">
+                                        <span class="col-xs-2" id="producttest_weibo_{$item.id}">{$item.weibo|default="--"}</span>
+                                        <span class="col-xs-2" id="producttest_wechat_{$item.id}">{$item.wechat|default="--"}</span>
+                                        <span class="col-xs-2" id="producttest_website_{$item.id}">{$item.website|default="--"}</span>
+                                        <span class="col-xs-2" id="producttest_apk_{$item.id}">{$item.apk|default="--"}</span>
+                                        <span class="col-xs-1" id="producttest_ios_{$item.id}">{$item.ios|default="--"}</span>
+                                        <span class="col-xs-1" id="producttest_account_{$item.id}">{$item.account|default="--"}</span>
+                                        <span class="col-xs-1" id="producttest_password_{$item.id}">{$item.password|default="--"}</span>
+                                        <span class="col-xs-1">
+                                        <button type="button" data-id="{$item.id}"
+                                                class="btn btn-info btn-mini edit-producttest" data-toggle="modal"
+                                                data-target="#edit_producttest">
+                                            <i class="icon icon-edit"></i>编辑
+                                        </button>
+                                        <button class="btn btn-mini btn-danger ajax-post"
+                                                href="{:U('deleteProducttest',array('producttestid'=>$item['id']))}">
+                                            <i class="icon icon-times"></i>
+                                            删除
+                                        </button>
+                                        </span>
+                                    </li>
+                                </volist>
+                            </ul>
+                            <div class="opwapper margin-bottom-15">
+                                <!-- 对话框部分-->
+                                <div class="modal fade" id="edit_producttest">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span>
+                                                </button>
+                                                <h4 class="modal-title">产品测试</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form id="project-producttest" class="form-horizontal center_info ajax-form project-producttest">
+                                                    <input type="hidden" name="id" value="" />
+                                                    <input type="hidden" name="proid" value="{$model.project_id}" />
+                                                    <div class="form-group">
+                                                        <label class="col-xs-2 control-label">微博</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control" name="weibo" placeholder="填写微博" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-xs-2 control-label">微信</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control" name="wechat" placeholder="填写微信" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-xs-2 control-label">网站</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control" name="website" placeholder="填写网站" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-xs-2 control-label">Apk</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control" name="apk" placeholder="填写Apk" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-xs-2 control-label">IOS</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control" name="ios" placeholder="填写IOS" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-xs-2 control-label">账号</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control" name="account" placeholder="填写测试账号" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-xs-2 control-label">密码</label>
+                                                        <div class="col-xs-10">
+                                                            <input type="text" class="form-control" name="password" placeholder="填写密码" />
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                                </button>
+                                                <button type="button" class="btn btn-primary ajax-post" target-form="project-producttest" href="{:U('producttestPublish')}">保存
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--导师-->
+                    <div class="tab-pane {$tab==9?'active':''} hide" id="teacher">
+                        <div class="padding-20">
+                            <button type="button" class="btn new-teacher" data-toggle="modal" data-target="#edit_teacher">
+                                <i class="icon icon-plus"></i>添加导师数据
+                            </button>
+                            <ul class="data-list border-top margin-top-10">
+                                <li class="row fix-row-padding border-bottom">
+                                    <div class="col-xs-2">
+                                        头像
+                                    </div>
+                                    <span class="col-xs-2">名称</span>
+                                    <span class="col-xs-2">邮件</span>
+                                    <span class="col-xs-4">描述</span>
+                                    <div class="col-xs-2">
+                                        操作
+                                    </div>
+                                </li>
+                                <volist name="teacher" id="item" empty="$empty">
+                                    <li class="row fix-row-padding border-bottom">
+                                        <div class="col-xs-2">
+                                            <div id="teacher_avatar_{$item.teacher_id}" class="teacher-in-edit-project" data-id="{$item.avatar}" data-url="{$item.path}" style="background-image: url({$item.path})"></div>
+                                        </div>
+                                        <span class="col-xs-2 padding-top-15" id="teacher_name_{$item.teacher_id}">{$item.name}</span>
+                                        <span class="col-xs-2 padding-top-15" id="teacher_email_{$item.teacher_id}">{$item.email|default="--"}</span>
+                                        <span class="col-xs-4 padding-top-15" id="teacher_introduction_{$item.teacher_id}">{$item.introduction|default="--"}</span>
+                                        <div class="col-xs-2 padding-top-15">
+                                            <button type="button" data-id="{$item.teacher_id}" class="btn btn-info btn-mini edit-teacher" data-toggle="modal" data-target="#edit_teacher">
+                                                <i class="icon icon-edit"></i>编辑
+                                            </button>
+                                            <button class="btn btn-mini btn-danger ajax-post" href="{:U('deleteTeacher',array('teacherid'=>$item['teacher_id']))}">
+                                                <i class="icon icon-times"></i> 删除
+                                            </button>
+                                        </div>
+                                    </li>
+                                </volist>
+                            </ul>
+                            <!-- 对话框部分-->
+                            <div class="modal fade" id="edit_teacher">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span>
+                                            </button>
+                                            <h4 class="modal-title">核心成员</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="project-teacher" class="form-horizontal center_info ajax-form">
+                                                <input type="hidden" name="id" value="" />
+                                                <input type="hidden" name="proid" value="{$model.project_id}" />
+                                                <div class="form-group">
+                                                    <label class="col-xs-2 control-label">姓名</label>
+                                                    <div class="col-xs-10">
+                                                        <input type="text" class="form-control" name="name" value="" placeholder="真实姓名">
+                                                        <div class="tip-in-form">
+                                                            <i class="icon icon-info-sign"></i> 填写您的身份证上的姓名
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-xs-2 control-label">常用邮箱</label>
+                                                    <div class="col-xs-10">
+                                                        <input type="text" class="form-control" name="email" value="" placeholder="电子信箱">
+                                                        <div class="tip-in-form">
+                                                            <i class="icon icon-info-sign"></i> 填写您的电子信箱，我们之后的相关文档会发送到此邮箱
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-xs-2 control-label">头像</label>
+                                                    <div class="col-xs-10">
+                                                        <input type="file" id="upload_teacher_img" class="">
+                                                        <div class="upload-img-box-teacher border" style="width: 250px">
+                                                            <div class="hidden no-image" style="font-size:3em;color: #CCCCCC;text-align: center">
+                                                                暂无图片
+                                                            </div>
+                                                            <img class="hidden has-image" src="" />
+                                                        </div>
+                                                        <input type="hidden" id="teacher_image" name="avatar" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-xs-2 control-label">个人介绍</label>
+                                                    <div class="col-xs-10">
+                                                        <textarea class="form-control" name="introduction" value="" placeholder="个人介绍"></textarea>
+                                                        <div class="tip-in-form">
+                                                            <i class="icon icon-info-sign"></i> 简单填写个人介绍，30字以上，300字以内为佳
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                                            </button>
+                                            <button type="button" class="btn btn-primary ajax-post" target-form="project-teacher" href="{:U('teacherPublish')}">保存
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </eq>
+            </div>
+        </div>
+    </div>
+    <style type="text/css">
+        .upload-pre-item{
+            position:relative;
+        }
+        .removeImg{
+            position:absolute;
+            top: 6px;
+            right: 7px;
+            color:#ccc;
+            cursor: pointer;
+        }
+    </style>
+</block>
+<block name="footer-script">
+    <script type="text/javascript" src="__ZUI__/lib/datetimepicker/datetimepicker.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/uploadify/jquery.uploadify.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/new-style/js/app.js"></script>
+
+    <script type="text/javascript">
+    $(function() {
+        App.init();
+        var image_flag = 0;
+
+        $('#project_publish').addClass('active')
+
+        //删除图片
+        $('body').on('click','.removeImg',function(){
+            $(this).closest('.border').next('input').val('');
+            $(this).closest('.border').html('<div style="color: #CCCCCC;text-align: center"> 暂无图片 </div>');
+        })
+
+        if ("{$model.stage}" != '') {
+            $("#stage option[value='{$model.stage}']").attr("selected", "selected");
+        }
+
+        if ("{$model.market_research.yonghuguimodanwei}" != '') {
+            $("#yonghuguimodanwei option[value='{$model.market_research.yonghuguimodanwei}']").attr("selected", "selected");
+        }
+
+        if ("{$model.market_research.shichangguimodanwei}" != '') {
+            $("#shichangguimodanwei option[value='{$model.market_research.shichangguimodanwei}']").attr("selected", "selected");
+        }
+
+        if ("{$model.market_research.shichangleibie}" != '') {
+            $("#shichangleibie option[value='{$model.market_research.shichangleibie}']").attr("selected", "selected");
+        }
+
+        if("{$model.need_res.yi.need_resource1}" !=''){
+            $("#need_resource1 option[value='{$model.need_res.yi.need_resource1}']").attr("selected", "selected");
+        }
+
+        if("{$model.need_res.er.need_resource2}" !=''){
+            $("#need_resource2 option[value='{$model.need_res.er.need_resource2}']").attr("selected", "selected");
+        }
+
+        if("{$model.need_res.san.need_resource3}" !=''){
+            $("#need_resource3 option[value='{$model.need_res.san.need_resource3}']").attr("selected", "selected");
+        }
+
+        if("{$model.competitive_edge.num0.advantage0}" !=''){
+            $("#advantage0 option[value='{$model.competitive_edge.num0.advantage0}']").attr("selected", "selected");
+        }
+
+        if("{$model.competitive_edge.num1.advantage1}" !=''){
+            $("#advantage1 option[value='{$model.competitive_edge.num1.advantage1}']").attr("selected", "selected");
+        }
+
+        if("{$model.competitive_edge.num2.advantage2}" !=''){
+            $("#advantage2 option[value='{$model.competitive_edge.num2.advantage2}']").attr("selected", "selected");
+        }
+
+        if("{$model.edge}" !=''){
+            $("#advantageCount").val("3");
+        }
+
+
+        $("#upload_picture_cover").uploadify({
+            "height": 30,
+            "swf": "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName": "download",
+            "buttonText": "上传项目logo",
+            "buttonClass": "uploadcover",
+            "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+            "width": 100,
+            'removeTimeout': 1,
+            'fileTypeExts': '*.jpg; *.png; *.gif;',
+            "onUploadSuccess": uploadLogoPicture,
+            'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+            'onFallback': function() {
+                alert("{:L('_FLASH_NOT_DETECTED_')}");
+            },
+            'onUploadProgress': function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+            },
+            'onUploadComplete': function(file) {
+
+            },
+            'onUploadStart': function(file) {
+
+            },
+            'onQueueComplete': function(queueData) {
+
+            }
+        });
+        $("#upload_cover_img").uploadify({
+            "height": 30,
+            "swf": "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName": "download",
+            "buttonText": "上传项目封面",
+            "buttonClass": "uploadcover",
+            "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+            "width": 100,
+            'removeTimeout': 1,
+            'fileTypeExts': '*.jpg; *.png; *.gif;',
+            "onUploadSuccess": uploadCoverPicture,
+            'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+            'onFallback': function() {
+                alert("{:L('_FLASH_NOT_DETECTED_')}");
+            },
+            'onUploadProgress': function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+            },
+            'onUploadComplete': function(file) {
+
+            },
+            'onUploadStart': function(file) {
+
+            },
+            'onQueueComplete': function(queueData) {
+
+            }
+        });
+        $("#upload_cover_img_1").uploadify({
+            "height": 30,
+            "swf": "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName": "download",
+            "buttonText": "上传产品图片",
+            "buttonClass": "uploadcover",
+            "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+            "width": 100,
+            'removeTimeout': 1,
+            'fileTypeExts': '*.jpg; *.png; *.gif;',
+            "onUploadSuccess": uploadCoverPicture1,
+            'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+            'onFallback': function() {
+                alert("{:L('_FLASH_NOT_DETECTED_')}");
+            },
+            'onUploadProgress': function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+            },
+            'onUploadComplete': function(file) {
+
+            },
+            'onUploadStart': function(file) {
+
+            },
+            'onQueueComplete': function(queueData) {
+
+            }
+        });
+
+        $("#upload_cover_img_2").uploadify({
+            "height": 30,
+            "swf": "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName": "download",
+            "buttonText": "上传团队照片",
+            "buttonClass": "uploadcover",
+            "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+            "width": 100,
+            'removeTimeout': 1,
+            'fileTypeExts': '*.jpg; *.png; *.gif;',
+            "onUploadSuccess": uploadCoverPicture2,
+            'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+            'onFallback': function() {
+                alert("{:L('_FLASH_NOT_DETECTED_')}");
+            },
+            'onUploadProgress': function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+            },
+            'onUploadComplete': function(file) {
+
+            },
+            'onUploadStart': function(file) {
+
+            },
+            'onQueueComplete': function(queueData) {
+
+            }
+        });
+
+        $("#upload_business_img").uploadify({
+            "height": 30,
+            "swf": "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName": "download",
+            "buttonText": "上传营业执照",
+            "buttonClass": "uploadcover",
+            "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+            "width": 100,
+            'removeTimeout': 1,
+            'fileTypeExts': '*.jpg; *.png; *.gif;',
+            "onUploadSuccess": uploadBusinessPicture,
+            'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+            'onFallback': function() {
+                alert("{:L('_FLASH_NOT_DETECTED_')}");
+            },
+            'onUploadProgress': function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+            },
+            'onUploadComplete': function(file) {
+
+            },
+            'onUploadStart': function(file) {
+
+            },
+            'onQueueComplete': function(queueData) {
+
+            }
+        });
+
+        $("#upload_coreteamer_img").uploadify({
+            "height": 30,
+            "swf": "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName": "download",
+            "buttonText": "上传头像",
+            "buttonClass": "uploadcover",
+            "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+            "width": 100,
+            'removeTimeout': 1,
+            'fileTypeExts': '*.jpg; *.png; *.gif;',
+            "onUploadSuccess": uploadCoreteamerPicture,
+            'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+            'onFallback': function() {
+                alert("{:L('_FLASH_NOT_DETECTED_')}");
+            },
+            'onUploadProgress': function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+            },
+            'onUploadComplete': function(file) {
+
+            },
+            'onUploadStart': function(file) {
+
+            },
+            'onQueueComplete': function(queueData) {
+
+            }
+        });
+        $("#upload_teacher_img").uploadify({
+            "height": 30,
+            "swf": "__STATIC__/uploadify/uploadify.swf",
+            "fileObjName": "download",
+            "buttonText": "上传头像",
+            "buttonClass": "uploadcover",
+            "uploader": "{:U('Core/File/uploadPicture',array('session_id'=>session_id()))}",
+            "width": 100,
+            'removeTimeout': 1,
+            'fileTypeExts': '*.jpg; *.png; *.gif;',
+            "onUploadSuccess": uploadTeacherPicture,
+            'overrideEvents': ['onUploadProgress', 'onUploadComplete', 'onUploadStart', 'onSelect'],
+            'onFallback': function() {
+                alert("{:L('_FLASH_NOT_DETECTED_')}");
+            },
+            'onUploadProgress': function(file, bytesUploaded, bytesTotal, totalBytesUploaded, totalBytesTotal) {
+                //$("#cover_id_cover").parent().find('.upload-img-box').html(totalBytesUploaded + ' bytes uploaded of ' + totalBytesTotal + ' bytes.');
+            },
+            'onUploadComplete': function(file) {
+
+            },
+            'onUploadStart': function(file) {
+
+            },
+            'onQueueComplete': function(queueData) {
+
+            }
+        });
+
+        function uploadLogoPicture(file, data) {
+            var data = $.parseJSON(data);
+            var src = '';
+            if (data.status) {
+
+                $("#pro_logo").val(data.id);
+                src = data.url || data.path;
+                $('.upload-img-box-logo').html(
+                    '<div class="upload-pre-item"><img src="' + src + '"/><div class="removeImg">删除</div></div>'
+                );
+
+            } else {
+                toast.error("图片上传失败", "{:L('_PROMPT_')}");
+            }
+        }
+
+        function uploadCoverPicture(file, data) {
+            var data = $.parseJSON(data);
+            var src = '';
+            if (data.status) {
+
+                $("#cover_img").val(data.id);
+                src = data.url || data.path;
+                $('.upload-img-box-cover').html(
+                    '<div class="upload-pre-item"><img src="' + src + '"/><div class="removeImg">删除</div></div>'
+                );
+
+            } else {
+                toast.error("图片上传失败", "{:L('_PROMPT_')}");
+            }
+        }
+
+        function uploadCoverPicture1(file, data) {
+            var data = $.parseJSON(data);
+            var src = '';
+            if (data.status) {
+                $("#cover_img_1").val(data.id);
+                src = data.url || data.path;
+                $('.upload-img-box-cover_1').html(
+                    '<div class="upload-pre-item"><img src="' + src + '"/><div class="removeImg">删除</div></div>'
+                );
+
+            } else {
+                toast.error("图片上传失败", "{:L('_PROMPT_')}");
+            }
+        }
+
+        function uploadCoverPicture2(file, data) {
+            var data = $.parseJSON(data);
+            var src = '';
+            if (data.status) {
+                $("#cover_img_2").val(data.id);
+                src = data.url || data.path;
+                $('.upload-img-box-cover_2').html(
+                    '<div class="upload-pre-item"><img src="' + src + '"/><div class="removeImg">删除</div></div>'
+                );
+
+            } else {
+                toast.error("图片上传失败", "{:L('_PROMPT_')}");
+            }
+        }
+
+        function uploadBusinessPicture(file, data) {
+            var data = $.parseJSON(data);
+            var src = '';
+            if (data.status) {
+
+                $("#business_image").val(data.id);
+                src = data.url || data.path;
+                $('.upload-img-box-business').html(
+                    '<div class="upload-pre-item"><img src="' + src + '"/><div class="removeImg">删除</div></div>'
+                );
+
+            } else {
+                toast.error("图片上传失败", "{:L('_PROMPT_')}");
+            }
+        }
+
+        function uploadCoreteamerPicture(file, data) {
+            var data = $.parseJSON(data);
+            var src = '';
+            if (data.status) {
+
+                $("#avatar_image").val(data.id);
+                src = data.url || data.path;
+                $('.upload-img-box-coreteamer').html(
+                    '<div class="upload-pre-item"><img src="' + src + '"/><div class="removeImg">删除</div></div>'
+                );
+
+            } else {
+                toast.error("图片上传失败", "{:L('_PROMPT_')}");
+            }
+        }
+
+        function uploadTeacherPicture(file, data) {
+            var data = $.parseJSON(data);
+            var src = '';
+            if (data.status) {
+                $("#teacher_image").val(data.id);
+                src = data.url || data.path;
+                $('.upload-img-box-teacher').html(
+                    '<div class="upload-pre-item"><img src="' + src + '"/><div class="removeImg">删除</div></div>'
+                );
+
+            } else {
+                toast.error("图片上传失败", "{:L('_PROMPT_')}");
+            }
+        }
+
+        $('.time').datetimepicker({
+            language: 'zh-CN',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 'month',
+            forceParse: 0,
+            format: 'yyyy-mm-dd'
+        });
+
+        $('.new-event').on('click', function() {
+            $('#project-event input[name=id]').val('');
+            $('#project-event input[name=create_time]').val('');
+            $('#project-event textarea[name=content]').html('');
+        });
+
+        $('body').on('click', '.edit-event', function() {
+            var id = $(this).data('id');
+            var content = $('#event_content_' + id).html();
+            var create_time = $('#event_create_time_' + id).html();
+
+            $('#project-event input[name=id]').val(id);
+            $('#project-event input[name=create_time]').val(create_time);
+            $('#project-event textarea[name=content]').html(content);
+        });
+
+        $('.new-news').on('click', function() {
+            $('#project-news input[name=id]').val('');
+            $('#project-news input[name=create_time]').val('');
+            $('#project-news input[name=new_title]').val('');
+            $('#project-news input[name=new_website]').val('');
+            $('#project-news input[name=application]').prop('checked', false);
+        });
+
+        $('body').on('click', '.edit-news', function() {
+            var id = $(this).data('id');
+            var create_time = $('#news_create_time_' + id).html();
+            var new_title = $('#news_title_' + id).html();
+            var new_website = $('#news_website_' + id).html();
+            var new_application = $('#news_application_' + id).data('type');
+
+            $('#project-news input[name=id]').val(id);
+            $('#project-news input[name=create_time]').val(create_time);
+            $('#project-news input[name=new_title]').val(new_title);
+            $('#project-news input[name=new_website]').val(new_website);
+            $('#project-news input[name=application]').prop('checked', new_application);
+        });
+
+        $('.new-growdata').on('click', function() {
+            $('#project-growdata input[name=id]').val('');
+            $('#project-growdata input[name=time]').val('');
+            $('#project-growdata input[name=category]').val('');
+            $('#project-growdata input[name=data]').val('');
+        });
+
+        $('body').on('click', '.edit-growdata', function() {
+            var id = $(this).data('id');
+            var time = $('#growdata_time_' + id).html();
+            var category = $('#growdata_category_' + id).html();
+            var data = $('#growdata_data_' + id).html();
+
+
+            $('#project-growdata input[name=id]').val(id);
+            $('#project-growdata input[name=time]').val(time);
+            $('#project-growdata input[name=category]').val(category);
+            $('#project-growdata input[name=data]').val(data);
+        });
+
+
+        $('.new-producttest').on('click', function() {
+            $('#project-producttest input[name=id]').val('');
+            $('#project-producttest input[name=weibo]').val('');
+            $('#project-producttest input[name=wechat]').val('');
+            $('#project-producttest input[name=website]').val('');
+            $('#project-producttest input[name=apk]').val('');
+            $('#project-producttest input[name=ios]').val('');
+            $('#project-producttest input[name=account]').val('');
+            $('#project-producttest input[name=password]').val('');
+        });
+
+        $('body').on('click', '.edit-producttest', function() {
+            var id = $(this).data('id');
+            var weibo = $('#producttest_weibo_' + id).html();
+            var website = $('#producttest_website_' + id).html();
+            var wechat = $('#producttest_wechat_' + id).html();
+            var apk = $('#producttest_apk_' + id).html();
+            var ios = $('#producttest_ios_' + id).html();
+            var account = $('#producttest_account_' + id).html();
+            var password = $('#producttest_password_' + id).html();
+
+            $('#project-producttest input[name=id]').val(id);
+            $('#project-producttest input[name=weibo]').val(weibo);
+            $('#project-producttest input[name=wechat]').val(wechat);
+            $('#project-producttest input[name=website]').val(website);
+            $('#project-producttest input[name=apk]').val(apk);
+            $('#project-producttest input[name=ios]').val(ios);
+            $('#project-producttest input[name=account]').val(account);
+            $('#project-producttest input[name=password]').val(password);
+        });
+
+        $('.new-teacher').on('click', function() {
+            $('#project-teacher .has-image').addClass('hidden');
+            $('#project-teacher .no-image').removeClass('hidden');
+
+            $('#project-teacher input[name=id]').val('');
+            $('#project-teacher input[name=name]').val('');
+            $('#project-teacher input[name=email]').val('');
+            $('#project-teacher input[name=introduction]').text('');
+            $('#project-teacher input[name=avatar]').val('');
+        });
+
+        $('body').on('click', '.edit-teacher', function() {
+            $('#project-teacher .has-image').removeClass('hidden');
+            $('#project-teacher .no-image').addClass('hidden');
+
+            var id = $(this).data('id');
+            var name = $('#teacher_name_' + id).html();
+            var email = $('#teacher_email_' + id).html();
+            var introduction = $('#teacher_introduction_' + id).html();
+
+            var avatar = $('#teacher_avatar_' + id).data('id');
+            var avatar_path = $('#teacher_avatar_' + id).data('url');
+
+            $('#project-teacher input[name=id]').val(id);
+            $('#project-teacher input[name=name]').val(name);
+            $('#project-teacher input[name=email]').val(email);
+            $('#project-teacher textarea[name=introduction]').text(introduction);
+
+            $('#project-teacher input[name=avatar]').val(avatar);
+            $('#project-teacher .has-image').attr('src', avatar_path);
+        });
+
+        $('.new-coreteamer').on('click', function() {
+            $('#project-coreteamer .has-image').addClass('hidden');
+            $('#project-coreteamer .no-image').removeClass('hidden');
+
+            $('#project-coreteamer input[name=id]').val('');
+            $('#project-coreteamer input[name=name]').val('');
+            $('#project-coreteamer input[name=position]').val('');
+            $('#project-coreteamer input[name=email]').val('');
+            $('#project-coreteamer input[name=address]').val('');
+            $('#project-coreteamer textarea[name=self_instruction]').text('');
+            $('#project-coreteamer input[name=avatar]').val('');
+        });
+
+        $('body').on('click', '.edit-coreteamer', function() {
+            $('#project-coreteamer .has-image').removeClass('hidden');
+            $('#project-coreteamer .no-image').addClass('hidden');
+
+            var id = $(this).data('id');
+            var name = $('#coreteamer_name_' + id).html();
+            var position = $('#coreteamer_position_' + id).html();
+            var email = $('#coreteamer_email_' + id).html();
+            var address = $('#coreteamer_address_' + id).html();
+            var self_instruction = $('#coreteamer_self_instruction_' + id).html();
+            var avatar = $('#coreteamer_avatar_' + id).data('id');
+            var avatar_path = $('#coreteamer_avatar_' + id).data('url');
+
+            $('#project-coreteamer input[name=id]').val(id);
+            $('#project-coreteamer input[name=name]').val(name);
+            $('#project-coreteamer input[name=position]').val(position);
+            $('#project-coreteamer input[name=email]').val(email);
+            $('#project-coreteamer input[name=telephone]').val(address);
+            $('#project-coreteamer textarea[name=self_instruction]').text(self_instruction);
+            $('#project-coreteamer input[name=avatar]').val(avatar);
+            $('#project-coreteamer .has-image').attr('src', avatar_path);
+        });
+
+        $('body').on('click', '.add_education_add', function() {
+            for (var i=0; i<3; i++){
+                $('#project-education input[name=edu'+i+']').val('');
+                $('#project-education input[name=degree'+i+']').val('');
+            }
+            var edit_id = $(this).attr('data-id');
+            $('.add_education_add_id').val(edit_id);
+            var len = $('.edit_edu_item_'+edit_id).size();
+            if(len>0){
+                $('.edit_edu_item_'+edit_id).each(function(index, el) {
+                    $('#project-education input[name=edu'+index+']').val($(el).text().split('-')[0]);
+                    $('#project-education input[name=degree'+index+']').val($(el).text().split('-')[1]);
+                });
+            }
+        });
+
+        $('body').on('click', '.add_education_job', function() {
+
+            for (var i=0; i<3; i++){
+                $('#project-job input[name=company'+i+']').val('');
+                $('#project-job input[name=position'+i+']').val('');
+            }
+
+            var edit_id = $(this).attr('data-id');
+            $('.add_education_job_id').val(edit_id);
+
+            var len = $('.edit_exper_item_'+edit_id).size();
+            if(len>0){
+                $('.edit_exper_item_'+edit_id).each(function(index, el) {
+                    $('#project-job input[name=company'+index+']').val($(el).text().split('-')[0]);
+                    $('#project-job input[name=position'+index+']').val($(el).text().split('-')[1]);
+                });
+            }
+        });
+
+    });
+    </script>
+</block>

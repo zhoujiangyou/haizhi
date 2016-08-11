@@ -1,0 +1,55 @@
+<extend name="Public/base"/>
+
+<block name="body">
+    <!-- 标题栏 -->
+    <div class="main-title">
+        <h2>首页广告栏设置</h2>
+    </div>
+    <div class="clearfix">
+
+    </div>
+    <!-- 数据列表 -->
+    <div class="data-table with-padding">
+        <table class="table table-bordered table-striped ">
+            <thead>
+            <tr>
+                <th class="">编号</th>
+                <th class="">标题</th>
+                <th class="">类型</th>
+                <th class="">图片</th>
+                <th class="">链接地址</th>
+                <th class="">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <notempty name="_list">
+                <volist name="_list" id="vo">
+                    <tr>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.title}</td>
+                        <td>{$vo.category}</td>
+                        <td><img class="img_temp" src="{$vo.path}"></td>
+                        <td>{$vo.url}</td>
+                        <td><a class="btn btn-primary" href="{:U('/admin/Home/update',array('id'=>$vo['id']))}" >修改信息</a></td>
+                    </tr>
+                </volist>
+                <else/>
+                <td colspan="9" class="text-center">数据为空</td>
+            </notempty>
+            </tbody>
+        </table>
+    </div>
+</block>
+
+<block name="script">
+    <script type="text/javascript">
+
+
+    </script>
+    <style>
+    .img_temp{
+        width:150px;
+        height:100px;
+    }
+    </style>
+</block>

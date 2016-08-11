@@ -1,0 +1,258 @@
+<include file="Public/right_chat_panel" />
+<php> D('Common/Member')->need_login();</php>
+<!--[if lt IE 8]>
+<div class="alert alert-danger" style="margin-bottom: 0">{:L('_TIP_BROWSER_DEPRECATED_1_')} <strong>{:L('_TIP_BROWSER_DEPRECATED_2_')}</strong>
+    {:L('_TIP_BROWSER_DEPRECATED_3_')} <a target="_blank"
+                                          href="http://browsehappy.com/">{:L('_TIP_BROWSER_DEPRECATED_4_')}</a>
+    {:L('_TIP_BROWSER_DEPRECATED_5_')}
+</div>
+<![endif]-->
+<php>
+    $unreadMessage=D('Common/Message')->getHaventReadMeassageAndToasted(is_login());
+</php>
+<div class="header-v1">
+    <!-- Topbar -->
+    <div class="topbar-v1 hide">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <ul class="list-inline top-v1-contacts">
+                        <li>
+                            <i class="fa fa-envelope"></i> Email: <a href="mailto:info@htmlstream.com">service@happychou.net</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i> 客服: 4000-911-966
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-inline top-v1-data navbar-nav">
+                        <li><a href="/" title="首页"><i class="fa fa-home"></i></a></li>
+                        <li><a href="/" title="全局服务"><i class="fa fa-globe"></i></a></li>
+                        <if condition="is_login()">
+                            <li>
+                                <a title="{:L('_EDIT_INFO_')}" href="{:U('ucenter/Config/index')}"><i
+                                        class="icon-cog"></i></a>
+                            </li>
+                        </if>
+                        <li><a href="/helpcenter/index/index.html">帮助中心</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Topbar -->
+    <style type="text/css" media="screen">
+    @media (min-width: 991px) and (max-width: 1200px) {
+        .titleul img {
+            width: 30%;
+        }
+    }
+
+    @media (max-width: 991px) {
+        .navbar.navbar-default {
+            height: auto !important;
+        }
+        .titleul{
+            margin-top: 10px !important;
+        }
+        .titleul img {
+            width: 100%;
+            margin-bottom:10px;
+        }
+    }
+    </style>
+    <div class="navbar navbar-default mega-menu" role="navigation" style="background-color:#fff;height:95px;border-bottom:none !important;border-radius:0 !important;">
+        <div class="container" style="padding-left:0;padding-right:0;">
+            <!-- <div class="collapse navbar-collapse mega-menu navbar-responsive-collapse" style="margin-top: -10px;"> -->
+            <div class="titleul" style="margin-top:20px;">
+                <a href="/"><img src="__PUBLIC__/images/logo.jpg" alt="" height="55" width="430"></a>
+                <ul class="nav navbar-nav ul_menu" style="margin-top:0">
+                    <think:nav name="nav" tree="true">
+                        <neq name="nav['_']" value="">
+                            <!--1-->
+                            <li class="dropdown">
+                                <a title="{$nav.title}" class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="icon-{$nav.icon} app-icon"></i> {$nav.title} <i class="icon-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <volist name="nav._" id="subnav">
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" style="color:{$subnav.color}" href="{$subnav.url|get_nav_url}" target="<eq name='subnav.target' value='1'>_blank<else/>_self</eq>"><i class="icon-{$subnav.icon}"></i> {$subnav.title}
+                                            </a>
+                                        </li>
+                                    </volist>
+                                </ul>
+                            </li>
+                            <else/>
+                            <!--2-->
+                            <li class="<eq name='nav.url|get_nav_active' value='1'>active<else/></eq>" style="margin-left:0 !important;">
+                                <a title="{$nav.title}" href="{$nav.url|get_nav_url}" target="<eq name='nav.target' value='1'>_blank<else/>_self</eq>" style="padding:17px 20px;bottom:0">
+                                    <i class="icon-{$nav.icon} app-icon "></i> {$nav.title}</span>
+                                    <span class="label label-badge rank-label" title="{$nav.band_text}" style="background: {$nav.band_color} !important;color:white !important;">{$nav.band_text}</span>
+                                </a>
+                            </li>
+                        </neq>
+                    </think:nav>
+                    <!-- Search Block -->
+                    <li class="title-search" style="text-align:center;line-height: 20px;margin-top:7px;padding:0 15px;">
+                        <i class="fa fa-search"></i>
+                        <span style="display:block;cursor:pointer;">搜索</span>
+                    </li>
+                    <!-- End Search Block -->
+                    <!--登陆面板-->
+                    <if condition="is_login()">
+                        <!--3-->
+                        <li class="dropdown hide" style="margin-left:0 !important;">
+                            <a id="nav_info" class="dropdown-toggle text-left" data-toggle="dropdown" style="padding:17px 25px 17px 20px;bottom:0">
+                                <span class="icon-bell"></span>
+                                <span id="nav_bandage_count" <if condition="count($unreadMessage) eq 0"> style="display: none"</if> class="label label-badge label-success">{:count($unreadMessage)}</span>
+                            </a>
+                            <ul class="dropdown-menu extended notification" style="position:absolute;right:0;border: 1px solid rgba(0, 0, 0, 0.15);box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);">
+                                <li>
+                                    <div class="clearfix header">
+                                        <div class="col-xs-6 nav_align_left"><span id="nav_hint_count">{:count($unreadMessage)}</span> {:L('_UNREAD_')} </div>
+                                    </div>
+                                </li>
+                                <li class="info-list">
+                                    <div class="list-wrap">
+                                        <ul id="nav_message" class="dropdown-menu-list scroller  list-data" style="width: auto;">
+                                            <if condition="count($unreadMessage) eq 0">
+                                                <div style="font-size: 18px;color: #CCCCCC;font-weight: normal;text-align: center;line-height: 150px"> {:L('_NO_MESSAGE_')} </div>
+                                                <else/>
+                                                <volist name="unreadMessage" id="message">
+                                                    <li>
+                                                        <a data-url="/ucenter/msg_all.html" onclick="Notify.readMessage(this,{$message.id})">
+                                                            <!-- <a href="/ucenter/msg_all.html" target="_blank"> -->
+                                                            <h3 class="margin-top-0">
+                                                                <i class="icon-bell"></i> {$message.content.title}
+                                                            </h3>
+                                                            <p> {$message.content.content} </p>
+                                                            <span class="time"> {$message.ctime} </span>
+                                                        </a>
+                                                    </li>
+                                                </volist>
+                                            </if>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="footer text-right">
+                                    <div class="btn-group">
+                                        <button onclick="Notify.setAllReaded()" class="btn btn-sm  "><i class="icon-check"></i> {:L('_ALL_HAS_READ_')} </button>
+                                        <a class="btn  btn-sm  " href="{:U('ucenter/Message/message')}">
+                                            {:L('_VIEW_NEWS_')}
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--4-->
+                        <!-- <li class="dropdown" style="margin-left:0 !important;"> -->
+                        <li class="" style="margin-left:0 !important;">
+                            <php>
+                                $common_header_user = query_user(array('nickname'));
+                            </php>
+                            <a href="/ucenter/conf" style="padding:17px 25px 17px 20px;bottom:0">
+                                <i class="fa fa-user"></i>&nbsp;&nbsp;{$common_header_user.nickname}
+                            </a>
+                            <!-- <a role="button" class="dropdown-toggle dropdown-toggle-avatar" data-toggle="dropdown" style="padding:17px 25px 17px 20px;bottom:0"> -->
+                            <!-- <i class="fa fa-search"></i>&nbsp;&nbsp;{$common_header_user.nickname} -->
+                            <!-- </a> -->
+                            <ul class="dropdown-menu text-left hide" role="menu" style="position:absolute;right:0;border: 1px solid rgba(0, 0, 0, 0.15);box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);">
+                                <php>
+                                    $user_nav=S('common_user_nav'); if($user_nav===false){ $user_nav=D('UserNav')->order('sort asc')->where('status=1')->select(); S('common_user_nav',$user_nav); }
+                                </php>
+                                <volist name="user_nav" id="vo">
+                                    <li><a style="color:{$vo.color}" target="<eq name='vo.target' value='1'>_blank<else/>_self</eq>" href="{:get_nav_url($vo['url'])}"><span
+                                            class="icon-{$vo.icon}"></span>&nbsp;&nbsp;{$vo.title} <span
+                                            class="label label-badge rank-label" title="{$vo.band_text}"
+                                            style="background: {$vo.band_color} !important;color:white !important;">{$vo.band_text}</span></a>
+                                    </li>
+                                </volist>
+                                <php>
+                                    $register_type=modC('REGISTER_TYPE','normal','Invite'); $register_type=explode(',',$register_type); if(in_array('invite',$register_type)){
+                                </php>
+                                <li><a href="{:U('ucenter/Invite/invite')}"><span
+                                        class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;{:L('_INVITE_FRIENDS_')}</a>
+                                </li>
+                                <php>}</php>
+                                {:hook('personalMenus')}
+                                <if condition="check_auth('Admin/Index/index')">
+                                    <li><a href="{:U('Admin/Index/index')}" target="_blank"><span
+                                            class="glyphicon glyphicon-dashboard"></span>&nbsp;&nbsp;{:L('_MANAGE_BACKGROUND_')}</a>
+                                    </li>
+                                </if>
+                                <li><a event-node="logout"><span
+                                        class="glyphicon glyphicon-off"></span>&nbsp;&nbsp;{:L('_LOGOUT_')}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!--5-->
+                        <li class="top_spliter "></li>
+                        <else/>
+                        <li class="top_spliter "></li>
+                        <php>
+                            $open_quick_login=modC('OPEN_QUICK_LOGIN', 0, 'USERCONFIG'); $register_type=modC('REGISTER_TYPE','normal','Invite'); $register_type=explode(',',$register_type); $only_open_register=0; if(in_array('invite',$register_type)&&!in_array('normal',$register_type)){ $only_open_register=1; }
+                        </php>
+                        <script>
+                        var OPEN_QUICK_LOGIN = "{$open_quick_login}";
+                        var ONLY_OPEN_REGISTER = "{$only_open_register}";
+                        </script>
+                        <!--6-->
+                        <!-- <li class="" style="margin-left:0 !important;">
+                            <a data-login="do_login">{:L('_LOGIN_')}</a>
+                        </li> -->
+                        <li style="margin-left:0 !important;text-align:center;line-height: 20px;margin-top:7px;padding:0 15px;">
+                            <i class="fa fa-user"></i>
+                            <span style="display:block;cursor:pointer;" data-login="do_login">登录</span>
+                        </li>
+                        <!--7-->
+                        <li style="margin-left:0 !important;text-align:center;line-height: 20px;margin-top:7px;padding:0 15px;">
+                            <i class="fa fa-user-plus"></i>
+                            <span style="display:block;cursor:pointer;" data-role="do_register" data-url="{:U('Ucenter/Member/register')}">{:L('_REGISTER_')}</span>
+                        </li>
+                        <!-- <li class="" style="margin-left:0 !important;">
+                            <a data-role="do_register" data-url="{:U('Ucenter/Member/register')}">{:L('_REGISTER_')}</a>
+                        </li> -->
+                        <li class="spliter"></li>
+                    </if>
+                </ul>
+            </div>
+            <!-- </div> -->
+            <!--导航栏菜单项-->
+        </div>
+    </div>
+    <include file="Public/_system" />
+</div>
+<div class="modal fade" id="elang">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">Sorry</h4>
+            </div>
+            <div class="modal-body" style="">
+                <p>The English version of this site is being developed, please pay attention to the announcement!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ongoing">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">关闭</span></button>
+                <h4 class="modal-title">温馨提示！</h4>
+            </div>
+            <div class="modal-body" style="">
+                <p>此部分功能正在开发中!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
